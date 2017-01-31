@@ -1,0 +1,134 @@
+
+// Fonts
+//@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,400i,900);
+
+// Variables
+//@import "variables";
+@import "materialize.scss";
+
+// Bootstrap
+//@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+//@import "node_modules/materialize-css/sass/materialize.scss";
+
+
+
+
+
+
+ body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+
+nav ul a,
+nav .brand-logo {
+  color: #444;
+}
+
+p {
+  line-height: 2rem;
+}
+
+.button-collapse {
+  color: #26a69a;
+}
+
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+  font-size: inherit;
+}
+
+footer.page-footer {
+  margin: 0;
+}
+
+/* override hiding of menu button */
+@media only screen and (min-width: 993px) {
+  nav a.button-collapse {
+    display: inline-block;
+  }
+}
+
+/*
+#F4F4F4  dark grey
+#2C2D34  almost black
+#C2606F  red wine
+#E9EAE9  lightgrey 
+#5D9EA1  teal
+#CDB5A3  brown 
+#E6AD73  mustard
+
+*/
+.ws-colour-1 {
+ background-color: #505160 !important;
+}
+.ws-colour-1-text {
+ color: #505160 !important;
+}
+.ws-colour-2 {
+ background-color: #68829E !important;
+}
+.ws-colour-2-text {
+ color: #68829E !important;
+}
+.ws-colour-3 {
+ background-color: #AEBD38 !important;
+}
+.ws-colour-3-text {
+ color: #AEBD38 !important;
+}
+.ws-colour-4 {
+ background-color: #598234 !important;
+}
+.ws-colour-4-text {
+ color: #598234 !important;
+}
+
+
+
+
+//.btn, .btn-large {
+//  background-color: #AEBD38;
+//}
+//.btn:hover, .btn-large:hover {
+//  background-color: #598234;
+//}
+
+h1, h2, h3, h4 {
+  color: #598234;
+}
+h1 {
+  font-size: 2em !important;
+  margin: 0.5em 0 0.5em 0;
+}
+
+h2 {
+  font-size: 1.8em !important;
+}
+h3 {
+  font-size: 1.6em !important;
+}
+h4 {
+  font-size: 1.4em !important;
+}
+h5 {
+  font-size: 1.2em !important;
+}
+
+.collection a.collection-item {
+  color: #AEBD38;
+}
+
+.nav-wrapper ul i {
+  color: #D0E1F9;
+}
