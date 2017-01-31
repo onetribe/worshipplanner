@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class SongsController extends Controller
 {
+    use FlashesSuccessAndFailureTrait;
 
     public function __construct()
     {
@@ -43,9 +44,9 @@ class SongsController extends Controller
      */
     public function store(Request $request)
     {
-        Song::create($this->transformInput($request));
+        $song = Song::create($this->transformInput($request));
 
-        return redirect()->route('songs.index');
+        return redirect()->route('songs.edit', ['song' => $song]);
     }
 
     /**
@@ -67,7 +68,8 @@ class SongsController extends Controller
      */
     public function edit(Song $song)
     {
-        //
+
+        return view('songs.edit', compact('song'));
     }
 
     /**
@@ -79,7 +81,11 @@ class SongsController extends Controller
      */
     public function update(Request $request, Song $song)
     {
-        //
+        $success = $song->update($this->transformInput($request));
+
+        $this->flashUpdate($request, $success);
+
+        return redirect()->route('songs.edit', ['song' => $song]);
     }
 
     /**
@@ -108,10 +114,17 @@ class SongsController extends Controller
      **/
     private function transformInput(Request $request)
     {
-//        $data = $request->only(['title', 'when', 'service_id', 'description']);
-//
-//        $data['when'] = app('date_helper')->getFromInputString($data['when']);
-//
-//        return $data;
+        $data = $request->only([
+            'title',
+            'alternative_title',
+            'lyrics',
+            'copyrights',
+            'ccli',
+            'default_key',
+            'default_tempo',
+            'youtube',
+        ]);
+
+        return $data;
     }
 }

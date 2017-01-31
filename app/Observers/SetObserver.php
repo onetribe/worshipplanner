@@ -8,15 +8,12 @@ use App\Set;
 
 class SetObserver
 {
+    use SetsActiveTeamOnCreateTrait;
+
     /**
      * @var DateHelperInterface $dateHelper
      **/
     protected $dateHelper;
-
-    /**
-     * @var ActiveTeam $activeTeam
-     **/
-    protected $activeTeam;
 
     /**
      * @param DateHelperInterface $dateHelper
@@ -54,12 +51,7 @@ class SetObserver
      */
     public function creating(Set $set)
     {
-        if ($team = $this->activeTeam->get()) {
-            $set->team_id = $team->id;
-            return true;
-        } else {
-            return false;
-        }
+        return $this->setTeamOnCreating($song);
     }
 
 }

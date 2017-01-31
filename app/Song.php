@@ -21,6 +21,7 @@ class Song extends Model
         'default_key', 
         'default_tempo',
         'lyrics',
+        'youtube',
     ];
 
 

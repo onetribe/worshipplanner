@@ -1,11 +1,11 @@
-<div id="add-set-modal" class="modal modal-fixed-footer">
-  <form role="form" method="POST" action="{{ route('sets.store') }}">
+<div id="add-song-modal" class="modal modal-fixed-footer">
+  <form role="form" method="POST" action="{{ route('songs.store') }}">
   <div class="modal-content">
     {{ csrf_field() }}
 
-    <h4>{{ __('sets.add') }}</h4>
+    <h4>{{ __('songs.add') }}</h4>
     <p>
-      @include('sets._form_fields')
+      @include('songs._basic_form_fields')
     </p>
   </div>
   <div class="modal-footer">

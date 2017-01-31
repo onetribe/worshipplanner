@@ -18,6 +18,9 @@ class ComposerServiceProvider extends ServiceProvider
         View::composer(
             'sets._form_fields', 'App\Http\ViewComposers\SetsFormFieldsComposer'
         );
+        View::composer(
+            'authors._select', 'App\Http\ViewComposers\AuthorSelectComposer'
+        );
 
 //        // Using Closure based composers...
 //        View::composer('dashboard', function ($view) {

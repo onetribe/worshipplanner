@@ -38,9 +38,13 @@ Route::get('/sets/delete/{set}', 'SetsController@destroy')
 Route::get('/songs', 'SongsController@index')
     ->name('songs.index');
     
-Route::get('/songs/show/{song}', 'SongsController@show')
-    ->name('songs.view')
-    ->middleware('can:view,song');
+Route::get('/songs/edit/{song}', 'SongsController@edit')
+    ->name('songs.edit')
+    ->middleware('can:update,song');
+
+Route::put('/songs/update/{song}', 'SongsController@update')
+    ->name('songs.update')
+    ->middleware('can:update,song');
 
 Route::post('/songs/store', 'SongsController@store')
     ->name('songs.store')

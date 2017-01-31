@@ -11,7 +11,7 @@
         <a class="waves-effect waves-light tooltipped" 
            data-position="bottom" 
            data-delay="50" 
-           data-tooltip="{{ trans('songs.add') }}" 
+           data-tooltip="{{ __('songs.add') }}" 
            href="#add-song-modal"><i class="material-icons">add</i></a>
     </li>
 @endsection
@@ -24,17 +24,17 @@
         <thead>
           <tr>
               <th data-field="search"><input type="search" name="search_song" placeholder="search" /></th>
-              <th data-field="author">{{ trans('common.author') }}</th>
-              <th data-field="key">{{ trans('songs.key') }}</th>
+              <th data-field="author">{{ __('authors.authors') }}</th>
+              <th data-field="key">{{ __('songs.key') }}</th>
               @if($canManage)
-              <th data-field="delete">{{ trans('common.delete') }}</th>
+              <th data-field="manage">{{ __('common.manage') }}</th>
               @endif
           </tr>
         </thead>
         <tbody>
           @foreach($songs as $song)
             <tr>
-              <td>{{ $song->title }}</td>
+              <td>{{ $song->title }} @if($song->alternative_title) ({{ $song->alternative_title }})  @endif</td>
               <td>
                 @foreach($song->authors as $author)
                   <div class="chip">{{ $author->name }}</div>
@@ -43,7 +43,17 @@
               <td>{{ $song->default_key }}</td>
               @if($canManage)
               <td>
-                  <a href="{{ route('songs.delete', ['song' => $song]) }}"><i class='material-icons'>delete</i></a>
+                  <a href="{{ route('songs.edit', ['song' => $song]) }}"
+                     class="tooltipped"
+                     data-position="bottom" 
+                     data-delay="50" 
+                     data-tooltip="{{ __('common.edit') }}" ><i class='material-icons'>edit</i></a>
+                  &nbsp;
+                  <a href="{{ route('songs.delete', ['song' => $song]) }}"
+                     class="tooltipped"
+                     data-position="bottom" 
+                     data-delay="50" 
+                     data-tooltip="{{ __('common.delete') }}" ><i class='material-icons'>delete</i></a>
               </td>
               @endif
             </tr>
@@ -54,4 +64,5 @@
   </div>
 </div>
 
+@include('songs._add_modal')
 @endsection

@@ -40,6 +40,17 @@
     </div>
 @endif
 
+@if (count($errors) > 0)
+    <div class="alert-box card-panel red lighten-2">
+        {{ __('common.input_error') }}<br><br>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
  @yield('content')
 
 @include("_footer")

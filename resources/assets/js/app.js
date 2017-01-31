@@ -35,9 +35,9 @@ require('./bootstrap');
         }
     });
 
-    setTimeOut(function () {
+    window.setTimeout(function () {
         $('.alert-box').fadeOut('slow');
-    }, 6000);
+    }, 5000);
     
     
 

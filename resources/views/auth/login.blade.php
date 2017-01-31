@@ -9,7 +9,7 @@
         
           <div class="card z-depth-1">
             <div class="card-content">
-              <span class="card-title">{{ trans('auth.login') }}</span>
+              <span class="card-title">{{ __('auth.login') }}</span>
               <p>
                 <form class="" role="form" method="POST" action="{{ url('/login') }}">
                     {{ csrf_field() }}
@@ -17,7 +17,7 @@
                     <div class="row">
                       <div class="input-field col s12">
                         <input name="email" id="email" type="email" class="validate" data-error="wrong" data-success="right" value="{{ old('email') }}" required autofocus/>
-                        <label for="email">{{ trans('form.email') }}</label>
+                        <label for="email">{{ __('form.email') }}</label>
                         @if ($errors->has('email'))
                           <span class="text-red">
                             <strong>{{ $errors->first('email') }}</strong>
@@ -29,7 +29,7 @@
                     <div class="row">
                       <div class="input-field col s12">
                         <input name="password" id="password" type="password" class="validate" required />
-                        <label for="password">{{ trans('form.password') }}</label>
+                        <label for="password">{{ __('form.password') }}</label>
                         @if ($errors->has('password'))
                           <span class="text-red">
                               <strong>{{ $errors->first('password') }}</strong>
@@ -43,7 +43,7 @@
                         <label>
                           <input type="checkbox" name="remember">
                           <span class="lever"></span>
-                          {{ trans('auth.remember_me') }}
+                          {{ __('auth.remember_me') }}
                         </label>
                       </div>
                     </div>
@@ -52,11 +52,11 @@
                     <div class="row">
                       <div class="col s12">
                         <button type="submit" class="btn btn-primary">
-                          {{ trans('auth.login') }}
+                          {{ __('auth.login') }}
                         </button>
 
                         <a class="btn btn-link" href="{{ url('/password/reset') }}">
-                          {{ trans('auth.forgot_password') }}
+                          {{ __('auth.forgot_password') }}
                         </a>
                       </div>
                     </div>
