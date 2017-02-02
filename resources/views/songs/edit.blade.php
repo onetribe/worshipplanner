@@ -11,14 +11,14 @@
 @endsection
 
 @section('content')
-	<form role="form" method="POST" action="{{ route('songs.update', ['song' => $song]) }}">
-	{{ method_field('PUT') }}
-	{{ csrf_field() }}
+    <form role="form" method="POST" action="{{ route('songs.update', ['song' => $song]) }}">
+    {{ method_field('PUT') }}
+    {{ csrf_field() }}
 
     <div class="section">
 
       <div class="row">
-      	<div class="col s12 m7">
+        <div class="col s12 m6">
           <div class="card">
             <div class="card-content">
               <div class="row">
@@ -27,7 +27,7 @@
                   <label for="lyrics">Lyrics</label>
                 </div>
                 <div class="right">
-                  <a class="waves-effect btn-flat">Auto-detect lines</a>
+                  <a class="waves-effect btn-flat" id="autoDetectBtn">Auto-detect lines</a>
                 </div>
               </div>
             </div>
@@ -35,7 +35,7 @@
         </div>
 
 
-        <div class="col s12 m5">
+        <div class="col s12 m6">
           <div class="card">
             <div class="card-content">
               @include('songs._basic_form_fields', ['defaultTitle' => $song->title, 'defaultAlternativeTitle' => $song->alternative_title])
@@ -84,4 +84,19 @@
 
     </div>
     </form>
+
+@endsection
+
+
+@section('scripts')
+<script type="text/javascript">
+
+$(function(){
+    var lineDetector = new LyricLineDetect();
+
+    $("#autoDetectBtn").click(function () {
+        $("#lyrics").val(lineDetector.convertText($("#lyrics").val()));
+    });
+});
+</script>
 @endsection
