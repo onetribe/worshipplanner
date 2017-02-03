@@ -47,7 +47,7 @@
               </div>
               <div class="row">
                 <div class="input-field col s4">
-                  <input id="ccli" name="ccli" type="text" class="validate" value="{{ $song->ccli}}">
+                  <input type="number" step="1" id="ccli" name="ccli" type="text" class="validate" value="{{ $song->ccli}}">
                   <label for="ccli">{{ __('songs.ccli_number') }}</label>
                 </div>
                 <div class="input-field col s3">
@@ -55,7 +55,7 @@
                   <label>{{ __('songs.key') }}</label>
                 </div>
                 <div class="input-field col s4">
-                  <input id="default_tempo" name="default_tempo" type="text" class="validate" value="{{ $song->default_tempo }}">
+                  <input type="number" step="1" id="default_tempo" name="default_tempo" type="text" class="validate" value="{{ $song->default_tempo }}">
                   <label for="default_tempo">{{ __('songs.tempo') }}</label>
                 </div>
               </div>
@@ -95,7 +95,7 @@ $(function(){
     var lineDetector = new LyricLineDetect();
 
     $("#autoDetectBtn").click(function () {
-        $("#lyrics").val(lineDetector.convertText($("#lyrics").val()));
+        $("#lyrics").val(lineDetector.convertText($("#lyrics").val(), true));
     });
 });
 </script>

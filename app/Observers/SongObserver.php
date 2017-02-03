@@ -8,6 +8,7 @@ use App\Song;
 class SongObserver
 {
     use SetsActiveTeamOnCreateTrait;
+    use StripsTagsFromFields;
 
     /**
      * @param DateHelperInterface $dateHelper
@@ -30,6 +31,8 @@ class SongObserver
         if (is_null($song->lyrics)) {
             $song->lyrics = "";
         }
+
+        $this->stripTags($song, ['lyrics', 'youtube', 'copyrights', 'title', 'alternative_title']);
 
         return true;
     }

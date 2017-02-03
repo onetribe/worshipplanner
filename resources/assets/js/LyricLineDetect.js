@@ -1,5 +1,9 @@
 class LyricLineDetect {
-  
+
+  constructor() {
+    this.availableChords = ["A","Ab","A#","Bb","B","C","C#","Db","D","D#","Eb","E","F","F#","Gb","G","G#","A♭","B♭","D♭","E♭","G♭","A♯","C♯","D♯","F♯","G♯","H","Hb","H♭"];
+  }
+
   detect(lyrics) {
     var lines = lyrics.split("\n");
     var lineTypes = [];
@@ -15,9 +19,7 @@ class LyricLineDetect {
   }
 
   isChordLine(line) {
-    //exclude A, as that's a word
-    var availableChords = ["A","Ab","A#","Bb","B","C","C#","Db","D","D#","Eb","E","F","F#","Gb","G","G#"];
-    var tokens = line.replace(/[0-9]/g, "").replace(/m|sus|maj|dim|aug|sus7|\.|/g,"").toUpperCase().replace(/\(|\)|\//g, " ").replace(/\s+/g," ").trim().split(" ");
+    var tokens = line.replace(/\(|\)|\//g, " ").replace(/[0-9]/g, "").replace(/sus|maj|dim|aug|m|\.|\+|/g,"").toUpperCase().replace(/\s+/g," ").trim().split(" ");
     var countMatches = 0;
     var countWords = 0;
 
@@ -25,7 +27,7 @@ class LyricLineDetect {
         if (tokens[i].length > 2) {
             countWords++;
         }
-        if (availableChords.indexOf(tokens[i]) != -1) countMatches++;
+        if (this.availableChords.indexOf(tokens[i]) != -1) countMatches++;
     }
 
     if ((countMatches / tokens.length) >= 0.5 && countWords == 0) 
@@ -59,7 +61,7 @@ class LyricLineDetect {
     return false;
   }
 
-  convertText(lyrics) {
+  convertText(lyrics, replaceSharpsAndFlats = false) {
     var lineTypes = this.detect(lyrics);
     var lines = lyrics.split("\n");
 
@@ -72,6 +74,26 @@ class LyricLineDetect {
             lines[i] = lines[i].trim();
         } else if (lineTypes[i] == "lyric"){
             lines[i] = (lines[i].trim().length > 0 ? " " : "") + (lines[i].trim());
+        }
+    }
+
+    lyrics = lines.join("\n");
+
+    if (replaceSharpsAndFlats) {
+        lyrics = this.replaceSharpsAndFlats(lyrics);
+    }
+
+    return lyrics;
+  }
+
+
+  replaceSharpsAndFlats(lyrics) {
+    var lineTypes = this.detect(lyrics);
+    var lines = lyrics.split("\n");
+
+    for (var i = 0; i < lineTypes.length; i++) {
+        if (lineTypes[i] == "chord") {
+            lines[i] = lines[i].replace(/b/g, "♭").replace(/#/g, "♯");
         }
     }
 

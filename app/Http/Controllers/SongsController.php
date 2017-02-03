@@ -2,26 +2,51 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\SongRepository;
 use App\Song;
+use App\Services\Crud\SongCrudServiceInterface;
 use Illuminate\Http\Request;
 
 class SongsController extends Controller
 {
     use FlashesSuccessAndFailureTrait;
 
-    public function __construct()
+    /**
+     * @var array
+     **/
+    protected $validationRules;
+
+    /**
+     * @var SongRepository
+     **/
+    protected $songRepo;
+
+    public function __construct(SongRepository $songRepo)
     {
         $this->middleware('auth');
+        $this->validationRules = [
+            'title' => 'required|max:255',
+            'alternative_title' => 'max:255',
+            'lyrics' => 'max:5000',
+            'ccli' => 'integer|nullable',
+            'default_tempo' => 'integer|max:300|nullable',
+            'default_key' => 'max:4',
+            'youtube' => 'max:255',
+        ];
+
+        $this->songRepo = $songRepo;
     }
 
     /**
      * Displays all songs
      *
+     * @param App\Repositories\SongRepository $songRepo
+     *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $songs = Song::orderBy('title', 'ASC')->get();
+        $songs = $this->songRepo->getAllOrdered();
 
         return view('songs.index', compact('songs'));
     }
@@ -44,6 +69,8 @@ class SongsController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, $this->validationRules);
+
         $song = Song::create($this->transformInput($request));
 
         return redirect()->route('songs.edit', ['song' => $song]);
@@ -81,7 +108,11 @@ class SongsController extends Controller
      */
     public function update(Request $request, Song $song)
     {
+        $this->validate($request, $this->validationRules);
+
         $success = $song->update($this->transformInput($request));
+
+        $song->authors()->sync($request->get('authors', []));
 
         $this->flashUpdate($request, $success);
 

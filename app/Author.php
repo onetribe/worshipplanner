@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Author extends Model
 {
-	use TeamDependentModelTrait;
-
      /**
      * The attributes that are mass assignable.
      *
@@ -37,6 +35,20 @@ class Author extends Model
     }
 
     /**
+     * Get the team that owns this author.
+     */
+    public function team()
+    {
+        return $this->belongsTo(Team::class);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Model Methods
+    |--------------------------------------------------------------------------
+    */
+   
+    /**
      * Name accessor
      *
      * @return string
@@ -44,5 +56,16 @@ class Author extends Model
     public function getNameAttribute()
     {
         return $this->first_name . " " . ($this->middle_name ? $this->middle_name . " " : "" ) . $this->last_name;
+    }
+
+
+    /**
+     * Check whether this is a shared author between all teams
+     *
+     * @return bool
+     **/
+    public function isShared()
+    {
+        return is_null($this->team_id);
     }
 }

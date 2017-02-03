@@ -3,6 +3,7 @@
 namespace App\Http\ViewComposers;
 
 use App\Repositories\AuthorRepository;
+use App\Services\ActiveTeam;
 use Illuminate\View\View;
 
 class AuthorSelectComposer
@@ -17,11 +18,13 @@ class AuthorSelectComposer
 
     /**
      * @param App\Repostories\AuthorRepository $authors
+     * @param App\Services\ActiveTeam $activeTeam
      * @return void
      */
-    public function __construct(AuthorRepository $authors)
+    public function __construct(AuthorRepository $authors, ActiveTeam $activeTeam)
     {
         $this->authors = $authors;
+        $this->activeTeam = $activeTeam;
     }
 
     /**
@@ -32,11 +35,8 @@ class AuthorSelectComposer
      */
     public function compose(View $view)
     {
-        $authors = $this->authors
-            ->orderBy('last_name', 'ASC')
-            ->orderBy('first_name', 'ASC')
-            ->orderBy('middle_name', 'ASC')
-            ->get();
+        $activeTeam = $this->activeTeam->get();
+        $authors = $this->authors->getAllForTeam($activeTeam);
 
         $view->with('authors', $authors);
     }

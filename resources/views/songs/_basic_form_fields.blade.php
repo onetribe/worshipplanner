@@ -1,7 +1,7 @@
 
 <div class="row">
   <div class="input-field col s12">
-    <input name="title" id="title" type="text" class="validate" value="{{ $defaultTitle or "" }}" />
+    <input required name="title" id="title" type="text" class="validate" value="{{ $defaultTitle or "" }}" />
     <label for="title">{{ __('songs.title') }} *</label>
   </div>
 </div>
