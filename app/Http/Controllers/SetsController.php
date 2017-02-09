@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\SetRepository;
 use App\Set;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -9,9 +10,14 @@ use Illuminate\Http\Request;
 class SetsController extends Controller
 {
 
-    public function __construct()
+    /**
+     * @param SetRepository $setRepo
+     * @return void
+     **/
+    public function __construct(SetRepository $setRepo)
     {
         $this->middleware('auth');
+        $this->validationRules = $setRepo->getModel()->getValidationRules();
     }
 
     /**
@@ -46,6 +52,8 @@ class SetsController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, $this->validationRules);
+
         Set::create($this->transformInput($request));
 
         return redirect()->route('sets.index');
@@ -86,12 +94,16 @@ class SetsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  App\Set $set
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Set $set)
     {
-        //
+        $this->validate($request, $this->validationRules);
+
+        $success = $set->update($this->transformInput($request));
+
+        return redirect()->route('sets.view', ['set' => $set]);
     }
 
     /**

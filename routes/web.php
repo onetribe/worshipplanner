@@ -37,6 +37,10 @@ Route::get('/sets/delete/{set}', 'SetsController@destroy')
 Route::get('/sets/{set}/songs', 'SetsController@songs')
     ->name('sets.songs')
     ->middleware('can:view,set');
+
+Route::post('/sets/update/{set}', 'SetsController@update')
+    ->name('sets.update')
+    ->middleware('can:update,set');
 /*
 |--------------------------------------------------------------------------
 | Songs

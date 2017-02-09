@@ -13,4 +13,5 @@ return [
     "update_failed" => "Something went wrong while updating!",
     "deleted_successfully" => "Deleted successfully!",
     "delete_failed" => "Something went wrong while deleting!",
+    "service" => "Service",
 ];

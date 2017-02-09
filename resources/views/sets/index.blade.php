@@ -6,7 +6,7 @@
            data-position="bottom" 
            data-delay="50" 
            data-tooltip="{{ __('sets.add') }}" 
-           href="#add-set-modal"><i class="material-icons">add</i></a>
+           href="#add-edit-set-modal"><i class="material-icons">add</i></a>
     </li>
 @endsection
 
@@ -33,5 +33,5 @@
     </div>
 </div>
 
-@include('sets._add_modal')
+@include('sets._add_edit_modal', ['route' => route('sets.store') ])
 @endsection

@@ -31,6 +31,14 @@ class Set extends Model
         'when'
     ];
 
+    /**
+     * @var array
+     **/
+    protected $defaultValidationRules = [
+        'title' => 'max:255',
+        'description' => 'max:2000',
+    ];
+
 
     /*
     |--------------------------------------------------------------------------
@@ -68,4 +76,19 @@ class Set extends Model
         return $this->belongsTo(Service::class);
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Model Methods
+    |--------------------------------------------------------------------------
+    */
+    
+    /**
+    * Returns the default validation rules for a setsong
+    *
+    * @return array
+    **/
+   public function getValidationRules()
+   {
+        return $this->defaultValidationRules;
+   }
 }

@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\SetSong;
-use App\Team;
 
 class SetSongRepository extends AbstractRepository
 {

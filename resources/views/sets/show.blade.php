@@ -1,13 +1,20 @@
 @extends('layouts.app')
 
 @section('menu_items')
-    <li>
-        <a class="waves-effect waves-light tooltipped" 
-           data-position="bottom" 
-           data-delay="50" 
-           data-tooltip="{{ __('sets.delete') }}" 
-           href="{{ route('sets.delete', ['set' => $set]) }}"><i class="material-icons">delete</i></a>
-    </li>
+  <li>
+      <a class="waves-effect waves-light tooltipped" 
+         data-position="bottom" 
+         data-delay="50" 
+         data-tooltip="{{ __('common.edit') }}" 
+         href="#add-edit-set-modal"><i class="material-icons">edit</i></a>
+  </li>
+  <li>
+      <a class="waves-effect waves-light tooltipped" 
+         data-position="bottom" 
+         data-delay="50" 
+         data-tooltip="{{ __('sets.delete') }}" 
+         href="{{ route('sets.delete', ['set' => $set]) }}"><i class="material-icons">delete</i></a>
+  </li>
 @endsection
 
 @section('content')
@@ -48,9 +55,12 @@
 
   <div class="card ">
     <div class="card-content">
-      <p><b>Description:</b> <br/><em>@{{ set.description}} </em></p>
-      <p><b>Service:</b> <br/>
-        @{{ set.service ? set.service.title : ""}}
+      <p><b>{{ __('sets.description') }}:</b> <br/><em>{{ $set->description }} </em></p>
+      <p><b>{{ __('common.service') }}:</b>
+        {{ $set->service ? $set->service->title : ""}}
+      </p>
+      <p><b>{{ __('sets.date') }}:</b> 
+        {{ $set->when ? $set->when->format('j F, Y') : "" }}
       </p>
     </div>
   </div>
@@ -92,7 +102,12 @@
 
 </div>
 </div>
+
+@include('sets._add_edit_modal', ['route' => route('sets.update', ['set' => $set]) ])
+
 @endsection
+
+
 
 @section('scripts')
 <script type="text/javascript">
