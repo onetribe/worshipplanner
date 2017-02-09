@@ -18,7 +18,7 @@ class CreateSetSongsTable extends Migration
             $table->unsignedBigInteger('song_id');
             $table->unsignedBigInteger('set_id');
             $table->smallInteger('position');
-            $table->string('song_key');
+            $table->string('song_key')->nullable();
             $table->unsignedSmallInteger('song_tempo')->nullable();
             $table->text('song_lyrics');
             $table->timestamps();

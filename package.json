@@ -16,6 +16,7 @@
     "vue-resource": "^1.0.3"
   },
   "dependencies": {
-    "materialize-css": "^0.97.8"
+    "materialize-css": "^0.97.8",
+    "vuedraggable": "^2.8.3-rc0"
   }
 }

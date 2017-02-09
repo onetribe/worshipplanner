@@ -34,7 +34,7 @@
         <tbody>
           @foreach($songs as $song)
             <tr>
-              <td>{{ $song->title }} @if($song->alternative_title) ({{ $song->alternative_title }})  @endif</td>
+              <td>{{ $song->full_title }}</td>
               <td>
                 @foreach($song->authors as $author)
                   <div class="chip">{{ $author->name }}</div>

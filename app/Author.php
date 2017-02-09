@@ -17,6 +17,13 @@ class Author extends Model
         'last_name',
     ];
 
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['name'];
+
 
     /*
     |--------------------------------------------------------------------------

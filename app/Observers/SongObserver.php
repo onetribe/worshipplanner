@@ -11,7 +11,6 @@ class SongObserver
     use StripsTagsFromFields;
 
     /**
-     * @param DateHelperInterface $dateHelper
      * @param ActiveTeam $activeTeam
      * @return void
      **/

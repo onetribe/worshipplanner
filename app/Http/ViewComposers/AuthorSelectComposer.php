@@ -19,6 +19,7 @@ class AuthorSelectComposer
     /**
      * @param App\Repostories\AuthorRepository $authors
      * @param App\Services\ActiveTeam $activeTeam
+     *
      * @return void
      */
     public function __construct(AuthorRepository $authors, ActiveTeam $activeTeam)
@@ -31,6 +32,7 @@ class AuthorSelectComposer
      * Bind data to the view.
      *
      * @param  View  $view
+     *
      * @return void
      */
     public function compose(View $view)

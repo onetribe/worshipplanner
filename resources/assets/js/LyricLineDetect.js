@@ -67,7 +67,7 @@ class LyricLineDetect {
 
     for (var i = 0; i < lineTypes.length; i++) {
         if (lineTypes[i] == "chord" && lines[i].trim().substring(0, 1) != ".") {
-            lines[i] = "." + lines[i].trim();
+            lines[i] = "." + lines[i];
         } else if (lineTypes[i] == "section" && lines[i].trim().substring(0, 1) != "[") {
             lines[i] = "[" + lines[i].replace(/\s+/g, "") + "]".trim();
         } else if (lineTypes[i] == "comment"){

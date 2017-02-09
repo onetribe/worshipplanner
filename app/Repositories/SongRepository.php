@@ -22,11 +22,11 @@ class SongRepository extends AbstractRepository
      **/
     public function getAllOrdered(array $with = null)
     {
-    	$q = $this->orderBy('title', 'ASC')
+        $q = $this->orderBy('title', 'ASC')
             ->orderBy('alternative_title', 'ASC');
         
         if (! is_null($with)) {
-        	$q->with($with);
+            $q->with($with);
         }
 
         return $q->get();

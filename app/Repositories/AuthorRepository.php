@@ -9,6 +9,7 @@ class AuthorRepository extends AbstractRepository
 {
     /**
      * @param string
+     *
      * @return void
      **/
     public function __construct()

@@ -12,6 +12,7 @@ return [
     "youtube" => "Youtube Link",
     "add" => "Add Song",
     "back" => "Back to song list",
+    "select" => "Select a song",
     "deleted_successfully" => "Song was deleted!",
     "delete_failed" => "Something went wrong while trying to delete the song!",
 ];

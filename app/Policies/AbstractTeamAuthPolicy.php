@@ -16,6 +16,7 @@ abstract class AbstractTeamAuthPolicy
 
     /**
      * @param ActiveTeam $activeTeam
+     *
      * @return void
      **/
     public function __construct(ActiveTeam $activeTeam)
@@ -34,6 +35,7 @@ abstract class AbstractTeamAuthPolicy
      * Determine whether the user can create sets.
      *
      * @param  \App\User  $user
+     *
      * @return mixed
      */
     public function create(User $user)
@@ -46,6 +48,7 @@ abstract class AbstractTeamAuthPolicy
      *
      * @param  \App\User  $user
      * @param  Illuminate\Database\Eloquent\Model  $model
+     *
      * @return mixed
      */
     public function view(User $user, Model $model)
@@ -58,6 +61,7 @@ abstract class AbstractTeamAuthPolicy
      *
      * @param  \App\User  $user
      * @param  Illuminate\Database\Eloquent\Model  $model
+     *
      * @return mixed
      */
     public function update(User $user, Model $model)
@@ -70,6 +74,7 @@ abstract class AbstractTeamAuthPolicy
      *
      * @param  \App\User  $user
      * @param  Illuminate\Database\Eloquent\Model  $model
+     *
      * @return mixed
      */
     public function delete(User $user, Model $model)
@@ -82,6 +87,7 @@ abstract class AbstractTeamAuthPolicy
      *
      * @param  \App\User  $user
      * @param  Illuminate\Database\Eloquent\Model  $model
+     *
      * @return mixed
      */
     protected function handleView(User $user, Model $model)
@@ -99,6 +105,7 @@ abstract class AbstractTeamAuthPolicy
      * Determine whether the user can create models.
      *
      * @param  \App\User  $user
+     *
      * @return mixed
      */
     protected function handleCreate(User $user)
@@ -121,6 +128,7 @@ abstract class AbstractTeamAuthPolicy
      *
      * @param  \App\User  $user
      * @param  Illuminate\Database\Eloquent\Model $model
+     *
      * @return mixed
      */
     protected function handleUpdate(User $user, Model $model)
@@ -143,10 +151,11 @@ abstract class AbstractTeamAuthPolicy
      *
      * @param  App\User  $user
      * @param  Illuminate\Database\Eloquent\Model  $model
+     *
      * @return mixed
      */
     protected function handleDelete(User $user, Model $model)
     {
-        return $this->update($user, $model);
+        return $this->handleUpdate($user, $model);
     }
 }

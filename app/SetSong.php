@@ -12,10 +12,22 @@ class SetSong extends Model
      * @var array
      */
     protected $fillable = [
+        'song_id',
+        'set_id',
         'position',
         'song_key',
         'song_tempo',
         'song_lyrics',
+    ];
+
+    /**
+     * @var array
+     **/
+    protected $defaultValidationRules = [
+        'song_lyrics' => 'max:5000',
+        'song_tempo' => 'integer|max:300|nullable',
+        'song_key' => 'max:4',
+        'position' => 'integer|nullable',
     ];
 
     /*
@@ -43,4 +55,20 @@ class SetSong extends Model
     {
         return $this->belongsTo(Set::class);
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Model Methods
+    |--------------------------------------------------------------------------
+    */
+    
+    /**
+    * Returns the default validation rules for a setsong
+    *
+    * @return array
+    **/
+   public function getValidationRules()
+   {
+        return $this->defaultValidationRules;
+   }
 }

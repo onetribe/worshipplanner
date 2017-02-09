@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Observers\UserObserver;
 use App\Observers\SetObserver;
+use App\Observers\SetSongObserver;
 use App\Observers\SongObserver;
 use App\Set;
+use App\SetSong;
 use App\Song;
 use App\User;
 use Illuminate\Support\Facades\Event;
@@ -36,5 +38,6 @@ class EventServiceProvider extends ServiceProvider
         User::observe(UserObserver::class);
         Set::observe(SetObserver::class);
         Song::observe(SongObserver::class);
+        SetSong::observe(SetSongObserver::class);
     }
 }

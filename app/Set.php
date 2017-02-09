@@ -55,7 +55,7 @@ class Set extends Model
      */
     public function setSongs()
     {
-        return $this->hasMany(SetSong::class);
+        return $this->hasMany(SetSong::class)->orderBy('position', 'ASC');
     }
 
     /**

@@ -21,6 +21,9 @@ class ComposerServiceProvider extends ServiceProvider
         View::composer(
             'authors._select', 'App\Http\ViewComposers\AuthorSelectComposer'
         );
+        View::composer(
+            'songs._select_options', 'App\Http\ViewComposers\SongSelectComposer'
+        );
 
 //        // Using Closure based composers...
 //        View::composer('dashboard', function ($view) {

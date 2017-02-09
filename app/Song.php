@@ -24,6 +24,26 @@ class Song extends Model
         'youtube',
     ];
 
+    /**
+     * @var array
+     **/
+    protected $defaultValidationRules = [
+        'title' => 'required|max:255',
+        'alternative_title' => 'max:255',
+        'lyrics' => 'max:5000',
+        'ccli' => 'integer|nullable',
+        'default_tempo' => 'integer|max:300|nullable',
+        'default_key' => 'max:4',
+        'youtube' => 'max:255',
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['full_title', 'author_list'];
+
 
     /*
     |--------------------------------------------------------------------------
@@ -71,4 +91,45 @@ class Song extends Model
         return $this->belongsToMany(Tag::class);
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Model Attributes Accessors
+    |--------------------------------------------------------------------------
+    */
+   
+    /**
+     * Shows the title and the alternative title
+     *
+     * @return string
+     **/
+    public function getFullTitleAttribute()
+    {
+        return $this->title . ($this->alternative_title ? " (" . $this->alternative_title . ")" : "");
+    }
+
+    /**
+     * Returns a list of the authors' names, comma separated
+     *
+     * @return string
+     **/
+    public function getAuthorListAttribute()
+    {
+        return $this->authors->implode('name', ', ');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Model Methods
+    |--------------------------------------------------------------------------
+    */
+   
+   /**
+    * Returns the default validation rules for a song
+    *
+    * @return array
+    **/
+   public function getValidationRules()
+   {
+        return $this->defaultValidationRules;
+   }
 }

@@ -54,12 +54,21 @@ class SetsController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  App\Set  $set
+     *
      * @return \Illuminate\Http\Response
      */
-    public function show(Set $set)
+    public function show(Request $request, Set $set)
     {
-        //
+        //eager load relations
+        $set->load('service')
+            ->setSongs
+            ->load(['song', 'song.authors']);
+
+        $viewData = compact('set');
+
+        return $request->wantsJson() ? response()->json($viewData) : view('sets.show', $viewData);
     }
 
     /**
@@ -111,10 +120,25 @@ class SetsController extends Controller
      **/
     private function transformInput(Request $request)
     {
-        $data = $request->only(['title', 'when', 'service_id', 'description']);
+        $data = $request->intersect(['title', 'when', 'service_id', 'description']);
 
         $data['when'] = app('date_helper')->getFromInputString($data['when']);
 
         return $data;
+    }
+
+    /**
+     * Get all songs for this set as json
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Set  $set
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function songs(Request $request, Set $set)
+    {
+        $songs = $set->setSongs->load(['song', 'song.authors']);
+        
+        return response()->json(['songs' => $songs]);
     }
 }

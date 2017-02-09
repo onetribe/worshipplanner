@@ -9,7 +9,15 @@ abstract class AbstractRepository
      **/
     protected $model;
 
-
+    /**
+     * Returns the model instance
+     *
+     * @return Illuminate\Database\Eloquent\Model
+     **/
+    public function getModel()
+    {
+        return $this->model;
+    }
 
     /**
      * Handle dynamic method calls by passing to the model.

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Repositories\SongRepository;
 use App\Song;
-use App\Services\Crud\SongCrudServiceInterface;
 use Illuminate\Http\Request;
 
 class SongsController extends Controller
@@ -24,15 +23,7 @@ class SongsController extends Controller
     public function __construct(SongRepository $songRepo)
     {
         $this->middleware('auth');
-        $this->validationRules = [
-            'title' => 'required|max:255',
-            'alternative_title' => 'max:255',
-            'lyrics' => 'max:5000',
-            'ccli' => 'integer|nullable',
-            'default_tempo' => 'integer|max:300|nullable',
-            'default_key' => 'max:4',
-            'youtube' => 'max:255',
-        ];
+        $this->validationRules = $songRepo->getModel()->getValidationRules();
 
         $this->songRepo = $songRepo;
     }
@@ -145,7 +136,7 @@ class SongsController extends Controller
      **/
     private function transformInput(Request $request)
     {
-        $data = $request->only([
+        $data = $request->intersect([
             'title',
             'alternative_title',
             'lyrics',
