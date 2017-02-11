@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\SetSongRepository;
+use App\Services\ScaleService;
+use App\Services\Transposer;
 use App\Set;
 use App\SetSong;
 use Illuminate\Http\Request;
@@ -100,6 +102,25 @@ class SetSongsController extends Controller
         }
 
         return response()->json([]);
+    }
+
+    /**
+     * Transposes the given song to the given key
+     *
+     * @param Illuminate\Http\Request  $request
+     * @param App\SetSong $setSong
+     * @return Illuminate\Http\Response
+     **/
+    public function transpose(Request $request, SetSong $setSong)
+    {
+        $key = app(ScaleService::class)->replaceSharpsAndFlats($request->input('key'));
+        $lyrics = app(Transposer::class)->transposeSong($setSong, $key);
+
+        $setSong->song_lyrics = $lyrics;
+        $setSong->song_key = $key;
+        $setSong->save();
+
+        return response()->json(['setSong' => $setSong->toArray()]);
     }
 
     /**

@@ -31,6 +31,8 @@ class SongObserver
             $song->lyrics = "";
         }
 
+        $song->lyrics = str_replace("\r\n", "\n", $song->lyrics);
+
         $this->stripTags($song, ['lyrics', 'youtube', 'copyrights', 'title', 'alternative_title']);
 
         return true;

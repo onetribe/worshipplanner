@@ -86,3 +86,7 @@ Route::get('/set_songs/delete/{setSong}', 'SetSongsController@destroy')
 Route::post('/set_songs/update/{setSong}', 'SetSongsController@update')
     ->name('set_songs.update')
     ->middleware('can:update,setSong');
+
+Route::post('/set_songs/transpose/{setSong}', 'SetSongsController@transpose')
+    ->name('set_songs.transpose')
+    ->middleware('can:update,setSong');

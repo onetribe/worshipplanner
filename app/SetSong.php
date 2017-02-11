@@ -30,6 +30,13 @@ class SetSong extends Model
         'position' => 'integer|nullable',
     ];
 
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['either_key'];
+
     /*
     |--------------------------------------------------------------------------
     | Model Relations
@@ -54,6 +61,51 @@ class SetSong extends Model
     public function set()
     {
         return $this->belongsTo(Set::class);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Model Accessors
+    |--------------------------------------------------------------------------
+    */
+   
+    /**
+     * Get the setSong lyrics.. if it doesn't have lyrics, use the setSong original song's lyrics
+     *
+     * @return string
+     */
+    public function getEitherLyricsAttribute()
+    {
+        return $this->song_lyrics ? $this->song_lyrics : $this->song->lyrics;
+    }      
+    /**
+     * Get the setSong key.. if it doesn't have a key, use the setSong original song's key
+     *
+     * @return string
+     */
+    public function getEitherKeyAttribute()
+    {
+        return $this->song_key ? $this->song_key : $this->song->default_key;
+    }   
+
+    /**
+     * Just an alias for getEitherLyricsAttribute
+     *
+     * @return string
+     */
+    public function getLyricsAttribute()
+    {
+        return $this->getEitherLyricsAttribute();
+    }
+
+    /**
+     * Just an alias for getEitherLyricsAttribute
+     *
+     * @return string
+     */
+    public function getKeyAttribute()
+    {
+        return $this->getEitherKeyAttribute();
     }
 
     /*

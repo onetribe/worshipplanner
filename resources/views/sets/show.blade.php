@@ -18,7 +18,7 @@
 @endsection
 
 @section('content')
-<div class="section" id="manage-set">
+<div class="section" id="manage-set" v-cloak>
 
 
 <div class="row">
@@ -27,17 +27,17 @@
     <div class="card-content">
       <h5>@{{ set.title }}</h5>
       <div class="row">
-        <ul class="collection col s12">
+        <ul class="collection col s12 sets-edit-collection">
             <draggable 
                 :list="set.set_songs" 
                 :options="{group:'songs'}" 
                 element="li" 
                 @end="onEnd"
             >
-                <li class="collection-item " v-for="(setSong, index) in set.set_songs" v-on:click="selectSong(index)" >
-                    <span class="secondary-content cursorPointer" ><i class="material-icons grey-text text-lighten-2 " v-on:click="removeSong(setSong)">delete</i></span>
-                    <span class="title cursorPointer" >@{{ setSong.song.title }}</span><br/>
-                    <span class="grey-text cursorPointer" >@{{ setSong.song.author_list }}</span>
+                <li class="collection-item cursorPointer avatar" v-for="(setSong, index) in set.set_songs" v-on:click="selectSong(index)" >
+                    <i class="circle">@{{ setSong.either_key }}</i>
+                    <span class="secondary-content " ><i class="material-icons grey-text text-lighten-2 " v-on:click="removeSong(setSong)">delete</i></span>
+                    <span class="title" >@{{ setSong.song.title }}</span><br/>
                 </li>
             </draggable>
         </ul>
@@ -68,26 +68,19 @@
 </div>
 
 <div class="col s12 m8">
-  <div class="card">
+  <div class="card" v-show="selected != null">
     <div class="card-content">
       <a class='btn-floating dropdown-button right waves-effect waves-light tooltipped' data-position="bottom"  data-tooltip="Transpose to key" href='#' data-activates='transposeDropdown'><i class="material-icons">trending_up</i></a>
-      <ul id='transposeDropdown' class='dropdown-content'>
-        <li><a href="#!">A</a></li>
-        <li><a href="#!">Bb</a></li>
-        <li><a href="#!">B</a></li>
-        <li><a href="#!">C</a></li>
-        <li><a href="#!">Db</a></li>
-        <li><a href="#!">D</a></li>
-        <li><a href="#!">Eb</a></li>
-        <li><a href="#!">E</a></li>
-        <li><a href="#!">F</a></li>
-        <li><a href="#!">F#</a></li>
-        <li><a href="#!">G</a></li>
-        <li><a href="#!">Ab</a></li>
-      </ul>
+
+        <ul id='transposeDropdown' class='dropdown-content'>
+          @foreach (app('App\\Services\\ScaleService')->getDefaultKeys() as $key)
+            <li><a href="#!" v-on:click="transposeSongLyrics('{{ $key }}')">{{ $key }}</a></li>
+          @endforeach
+        </ul>
       
       <div v-for="(setSong, index) in set.set_songs" v-show="selected == index">
-        <h5>@{{ setSong.song.full_title }}</h5>
+        <h5><div class="chip">@{{ setSong.either_key }}</div> @{{ setSong.song.full_title }}</h5>
+        <h6 class="grey-text " >@{{ setSong.song.author_list }}</h6>
         <textarea 
             :id="'song-lyrics-'+setSong.id" 
             class="materialize-textarea song-lyrics-textarea" 
@@ -117,6 +110,7 @@
     var addSongUrl = "{{ route('set_songs.store') }}";
     var removeSongUrl = "{{ route('set_songs.delete', ['setSong' => new \App\SetSong]) }}";
     var updateSongUrl = "{{ route('set_songs.update', ['setSong' => new \App\SetSong]) }}";
+    var transposeSongUrl = "{{ route('set_songs.transpose', ['setSong' => new \App\SetSong]) }}";
     var csrfToken = "{{ csrf_token() }}";
     
     app = new Vue({ 
@@ -207,6 +201,21 @@
             },
             updateSongLyrics: function (e) {
                 this.updateSong(this.currentSong, 'song_lyrics', e.target.value);
+            },
+            transposeSongLyrics: function (key) {
+                var app = this;
+                var data = {
+                  '_token': csrfToken,
+                  'key': key
+                };
+                $.post(
+                    transposeSongUrl + "/" + this.currentSong.id,
+                    data,
+                    null,
+                    'json'
+                ).done(function (data) {
+                    app.fetchSongs();
+                });
             }
         }
     });

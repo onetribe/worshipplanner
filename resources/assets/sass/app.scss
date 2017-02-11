@@ -1,6 +1,5 @@
 
 // Fonts
-//@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 @import url(https://fonts.googleapis.com/css?family=Roboto:300,400,400i,900);
 
@@ -10,13 +9,6 @@
 
 // Bootstrap
 //@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
-
-//@import "node_modules/materialize-css/sass/materialize.scss";
-
-
-
-
-
 
  body {
     display: flex;
@@ -136,9 +128,35 @@ h5 {
 .orderHandle {
   cursor: move;
 }
+
 .cursorPointer {
   cursor: pointer;
 }
+
 .song-lyrics-textarea {
   min-height: 400px !important;
+}
+
+[v-cloak] {
+  display: none;
+}
+
+.sets-edit-collection {
+  .collection-item {
+    padding-right: 5px !important;
+
+  }
+
+  .collection-item.avatar {
+    min-height: 40px !important;
+    .title {
+      font-size: 14px !important;
+    }
+    .circle {
+      font-size:12px !important;
+      line-height: 25px !important;
+      height: 25px !important;
+      width: 25px !important;
+    }
+  }
 }

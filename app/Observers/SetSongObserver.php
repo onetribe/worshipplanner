@@ -30,6 +30,8 @@ class SetSongObserver
     {
         $this->stripTags($setSong, ['song_lyrics']);
 
+        $setSong->song_lyrics = str_replace("\r\n", "\n", $setSong->song_lyrics);
+
         return true;
     }
 
