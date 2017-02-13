@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Services\ActiveTeam;
+use App\Services\Transposer;
 use App\Song;
 
 class SongObserver
@@ -11,12 +12,18 @@ class SongObserver
     use StripsTagsFromFields;
 
     /**
+     * @var App\Services\Transposer
+     **/
+    protected $transposer;
+
+    /**
      * @param ActiveTeam $activeTeam
      * @return void
      **/
-    public function __construct(ActiveTeam $activeTeam)
+    public function __construct(ActiveTeam $activeTeam, Transposer $transposer)
     {
         $this->activeTeam = $activeTeam;
+        $this->transposer = $transposer;
     }
 
     /**
@@ -32,6 +39,7 @@ class SongObserver
         }
 
         $song->lyrics = str_replace("\r\n", "\n", $song->lyrics);
+        $song->lyrics = $this->transposer->replaceSharpsAndFlatsInSong($song->lyrics);
 
         $this->stripTags($song, ['lyrics', 'youtube', 'copyrights', 'title', 'alternative_title']);
 

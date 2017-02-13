@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Repositories\SetSongRepository;
+use App\Services\Transposer;
 use App\SetSong;
 
 class SetSongObserver
@@ -10,13 +11,25 @@ class SetSongObserver
     use StripsTagsFromFields;
 
     /**
+     * @var SetSongRepository
+     **/
+    protected $setSongRepo;
+
+    /**
+     * @var Transposer
+     **/
+    protected $transposer;
+
+    /**
      * @param SetSongRepository $setSongRepo
+     * @param Transposer $transposer
      *
      * @return void
      **/
-    public function __construct(SetSongRepository $setSongRepo)
+    public function __construct(SetSongRepository $setSongRepo, Transposer $transposer)
     {
         $this->setSongRepo = $setSongRepo;
+        $this->transposer = $transposer;
     }
 
     /**
@@ -31,6 +44,7 @@ class SetSongObserver
         $this->stripTags($setSong, ['song_lyrics']);
 
         $setSong->song_lyrics = str_replace("\r\n", "\n", $setSong->song_lyrics);
+        $setSong->song_lyrics = $this->transposer->replaceSharpsAndFlatsInSong($setSong->song_lyrics);
 
         return true;
     }

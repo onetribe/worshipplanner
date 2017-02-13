@@ -153,14 +153,14 @@ class ScaleService
     }
 
     /**
-     * Helper method to replace # and b signs to ♭ and ♯
+     * Helper method to replace # and b signs with ♭ and ♯
      *
-     * @param string $key
+     * @param string $str
      * @return string
      **/
-    public function replaceSharpsAndFlats($key): string
+    public function replaceSharpsAndFlats($str): string
     {
-        return str_replace(["b", "#"], ["♭", "♯"], $key);
+        return str_replace(["b", "#"], ["♭", "♯"], $str);
     }
 
     /**
