@@ -60,7 +60,7 @@ class SetsController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Show the specified resource.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  App\Set  $set
@@ -69,25 +69,24 @@ class SetsController extends Controller
      */
     public function show(Request $request, Set $set)
     {
-        //eager load relations
-        $set->load('service')
-            ->setSongs
-            ->load(['song', 'song.authors']);
+        $viewData = $this->prepareViewData($set);
 
-        $viewData = compact('set');
-
-        return $request->wantsJson() ? response()->json($viewData) : view('sets.show', $viewData);
+        return $request->wantsJson() ? response()->json($viewData) : view('sets.view', $viewData);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Edit the specified resource.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Set  $set
+     *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, Set $set)
     {
-        //
+        $viewData = $this->prepareViewData($set);
+
+        return $request->wantsJson() ? response()->json($viewData) : view('sets.edit', $viewData);
     }
 
     /**
@@ -152,5 +151,20 @@ class SetsController extends Controller
         $songs = $set->setSongs->load(['song', 'song.authors']);
         
         return response()->json(['songs' => $songs]);
+    }
+
+    /**
+     * Helper method to prepare view data for show and edit
+     *
+     * @param  \App\Set  $set
+     * @return array
+     **/
+    private function prepareViewData(Set $set) : array
+    {
+        $set->load('service')
+            ->setSongs
+            ->load(['song', 'song.authors']);
+
+        return compact('set');
     }
 }

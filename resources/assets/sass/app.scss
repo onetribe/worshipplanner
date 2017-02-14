@@ -135,6 +135,7 @@ h5 {
 
 .song-lyrics-textarea {
   min-height: 400px !important;
+  font-family: monospace;
 }
 
 [v-cloak] {
@@ -159,4 +160,20 @@ h5 {
       width: 25px !important;
     }
   }
+}
+
+
+.lyricLine {
+  
+}
+.commentLine {
+  font-style: italic;
+  color: color('grey', 'lighten-1');
+}
+.chordLine {
+  color: $secondary-color;
+}
+.sectionLine {
+  color: color('grey', 'lighten');
+  font-weight: bold;
 }

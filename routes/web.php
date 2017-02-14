@@ -22,6 +22,10 @@ Route::get('/home', 'HomeController@index');
 Route::get('/sets', 'SetsController@index')
     ->name('sets.index');
 
+Route::get('/sets/edit/{set}', 'SetsController@edit')
+    ->name('sets.edit')
+    ->middleware('can:update,set');
+
 Route::get('/sets/show/{set}', 'SetsController@show')
     ->name('sets.view')
     ->middleware('can:view,set');

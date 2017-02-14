@@ -5,7 +5,7 @@
       <a class="waves-effect waves-light tooltipped" 
          data-position="bottom" 
          data-delay="50" 
-         data-tooltip="{{ __('common.edit') }}" 
+         data-tooltip="{{ __('sets.edit_details') }}" 
          href="#add-edit-set-modal"><i class="material-icons">edit</i></a>
   </li>
   <li>
@@ -18,7 +18,7 @@
 @endsection
 
 @section('content')
-<div class="section" id="manage-set" v-cloak>
+<div class="section lime lighten-5" id="manage-set" v-cloak>
 
 
 <div class="row">
@@ -36,7 +36,13 @@
             >
                 <li class="collection-item cursorPointer avatar" v-for="(setSong, index) in set.set_songs" v-on:click="selectSong(index)" >
                     <i class="circle">@{{ setSong.either_key }}</i>
-                    <span class="secondary-content " ><i class="material-icons grey-text text-lighten-2 " v-on:click="removeSong(setSong)">delete</i></span>
+                    <span class="secondary-content " ><i 
+                      class="material-icons grey-text text-lighten-2 tooltipped" 
+                      v-on:click="removeSong(setSong)"
+                      data-position="bottom" 
+                      data-delay="50" 
+                      data-tooltip="{{ __('sets.remove_song') }}" 
+                      >delete</i></span>
                     <span class="title" >@{{ setSong.song.title }}</span><br/>
                 </li>
             </draggable>
@@ -44,7 +50,11 @@
       </div>
 
       <div class="row">
-        <div class="input-field col s12">
+        <div class="input-field col s12 tooltipped" 
+              data-position="bottom" 
+              data-delay="50" 
+              data-tooltip="{{ __('sets.add_song') }}" 
+          >
           <select id="songSelect" class="browser-default" v-on:change="addSong">
             @include('songs._select_options')
           </select>
@@ -53,34 +63,23 @@
     </div>
   </div>
 
-  <div class="card ">
-    <div class="card-content">
-      <p><b>{{ __('sets.description') }}:</b> <br/><em>{{ $set->description }} </em></p>
-      <p><b>{{ __('common.service') }}:</b>
-        {{ $set->service ? $set->service->title : ""}}
-      </p>
-      <p><b>{{ __('sets.date') }}:</b> 
-        {{ $set->when ? $set->when->format('j F, Y') : "" }}
-      </p>
-    </div>
-  </div>
+@include('sets._description_card')
 
 </div>
 
 <div class="col s12 m8">
-  <div class="card" v-show="selected != null">
+  <div class="card " v-show="selected != null">
     <div class="card-content">
-      <a class='btn-floating dropdown-button right waves-effect waves-light tooltipped' data-position="bottom"  data-tooltip="Transpose to key" href='#' data-activates='transposeDropdown'><i class="material-icons">trending_up</i></a>
-
-        <ul id='transposeDropdown' class='dropdown-content'>
-          @foreach (app('App\\Services\\ScaleService')->getDefaultKeys() as $key)
-            <li><a href="#!" v-on:click="transposeSongLyrics('{{ $key }}')">{{ $key }}</a></li>
-          @endforeach
-        </ul>
+      <a class='btn-floating dropdown-button right waves-effect waves-light tooltipped' data-position="bottom"  data-tooltip="{{ __('songs.transpose') }}" href='#' data-activates='transposeDropdown'><i class="material-icons">trending_up</i></a>
+      <ul id='transposeDropdown' class='dropdown-content'>
+        @foreach (app('App\\Services\\ScaleService')->getDefaultKeys() as $key)
+          <li><a href="#!" v-on:click="transposeSongLyrics('{{ $key }}')">{{ $key }}</a></li>
+        @endforeach
+      </ul>
       
       <div v-for="(setSong, index) in set.set_songs" v-show="selected == index">
         <h5><div class="chip">@{{ setSong.either_key }}</div> @{{ setSong.song.full_title }}</h5>
-        <h6 class="grey-text " >@{{ setSong.song.author_list }}</h6>
+        <h6 class="grey-text" >@{{ setSong.song.author_list }}</h6>
         <textarea 
             :id="'song-lyrics-'+setSong.id" 
             class="materialize-textarea song-lyrics-textarea" 
@@ -88,6 +87,12 @@
             v-on:change="updateSongLyrics"
         ></textarea>
       </div>
+
+      <div class="grey-text right" v-show="usingOriginal">{{ __('songs.using_original') }}</div>
+      <div class="grey-text right" v-show="usingEdited">{{ __('songs.using_edited') }}</div>
+
+      <a class='btn-floating left waves-effect waves-light tooltipped' data-position="top"  data-tooltip="{{ __('songs.edit_original') }}"  v-on:click='editOriginal()' data-activates='transposeDropdown'><i class="material-icons">queue_music</i></a>
+      <div class="clearfix"></div>
       
     </div>
   </div>
@@ -108,6 +113,7 @@
     var fetchSetUrl = "{{ route('sets.view', ['set' => $set]) }}";
     var orderSongsUrl = "{{ route('set_songs.order', ['set' => $set]) }}";
     var addSongUrl = "{{ route('set_songs.store') }}";
+    var editSongUrl = "{{ route('songs.edit', ['song' => '']) }}";
     var removeSongUrl = "{{ route('set_songs.delete', ['setSong' => new \App\SetSong]) }}";
     var updateSongUrl = "{{ route('set_songs.update', ['setSong' => new \App\SetSong]) }}";
     var transposeSongUrl = "{{ route('set_songs.transpose', ['setSong' => new \App\SetSong]) }}";
@@ -133,6 +139,12 @@
                 }
 
                 return this.currentSong.song_lyrics ? this.currentSong.song_lyrics : this.currentSong.song.lyrics;
+            },
+            usingOriginal: function () {
+              return this.currentSong ? !this.currentSong.song_lyrics : false;
+            },
+            usingEdited: function () {
+              return !this.usingOriginal;
             }
         },
         methods: {
@@ -216,6 +228,9 @@
                 ).done(function (data) {
                     app.fetchSongs();
                 });
+            },
+            editOriginal: function () {
+                window.location.href = editSongUrl + "/" + this.currentSong.song.id;
             }
         }
     });

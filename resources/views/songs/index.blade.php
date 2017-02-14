@@ -17,13 +17,13 @@
 @endsection
 
 @section('content')
-<div class="section">
+<div class="section" id="index-songs" v-cloak>
   <div class="row">
     <div class="col s12">
       <table class="striped">
         <thead>
           <tr>
-              <th data-field="search"><input type="search" name="search_song" placeholder="search" /></th>
+              <th data-field="search"><input type="search" name="search_song" placeholder="search" v-model="searchText" /></th>
               <th data-field="author">{{ __('authors.authors') }}</th>
               <th data-field="key">{{ __('songs.key') }}</th>
               @if($canManage)
@@ -32,32 +32,30 @@
           </tr>
         </thead>
         <tbody>
-          @foreach($songs as $song)
-            <tr>
-              <td>{{ $song->full_title }}</td>
+            <tr v-for="song in filteredSongs">
+              <td>@{{ song.full_title }}</td>
               <td>
-                @foreach($song->authors as $author)
-                  <div class="chip">{{ $author->name }}</div>
-                @endforeach
+                  <div class="chip" v-for="author in song.authors">@{{ author.name }}</div>
               </td>
-              <td>{{ $song->default_key }}</td>
+              <td>@{{ song.default_key }}</td>
               @if($canManage)
               <td>
-                  <a href="{{ route('songs.edit', ['song' => $song]) }}"
-                     class="tooltipped"
+                  <a 
+                     v-on:click="editSong(song.id)"
+                     class="tooltipped cursorPointer"
                      data-position="bottom" 
                      data-delay="50" 
                      data-tooltip="{{ __('common.edit') }}" ><i class='material-icons'>edit</i></a>
                   &nbsp;
-                  <a href="{{ route('songs.delete', ['song' => $song]) }}"
-                     class="tooltipped"
+                  <a 
+                     v-on:click="deleteSong(song.id)"
+                     class="tooltipped cursorPointer"
                      data-position="bottom" 
                      data-delay="50" 
                      data-tooltip="{{ __('common.delete') }}" ><i class='material-icons'>delete</i></a>
               </td>
               @endif
             </tr>
-          @endforeach
         </tbody>
       </table>
     </div>
@@ -65,4 +63,48 @@
 </div>
 
 @include('songs._add_modal')
+@endsection
+
+@section('scripts')
+  <script type="text/javascript">
+    var songs = {!! $songs->toJson() !!};
+    var songEditUrl = "{{ route('songs.edit', ['song' => '']) }}";
+    var songDeleteUrl = "{{ route('songs.delete', ['song' => '']) }}";
+    var csrfToken = "{{ csrf_token() }}";
+    
+    app = new Vue({ 
+        el: '#index-songs',
+        data: {
+            songs: songs,
+            //filteredSongs: songs,
+            searchText: ""
+        },
+        computed: {
+          filteredSongs: function () {
+            return this.songs.filter(function (song) {
+                  var searchStr = new RegExp(this.searchText.replace(" ", ".*"), "i");
+
+                  var titleSearch = song.full_title.search(searchStr);
+                  var authorSearch = song.author_list.search(searchStr);
+                  var lyricSearch = song.lyrics.search(searchStr);
+                  
+                  return titleSearch >= 0 || authorSearch >= 0 || lyricSearch >= 0 ? true : false;
+                }, this);
+          }
+        },
+        methods: {
+          editSong: function (id) {
+            window.location.href = songEditUrl + "/" + id;
+          },
+          deleteSong: function (id) {
+            window.location.href = songDeleteUrl + "/" + id;
+          }
+//            filterSongs: function () {
+//                this.filteredSongs = this.songs.filter(function (song) {
+//                  return song.full_title.search(this.searchText) >= 0 ? true : false;
+//                }, this);
+//            }
+        }
+    });
+</script>
 @endsection

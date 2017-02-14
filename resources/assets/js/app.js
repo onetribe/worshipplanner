@@ -7,14 +7,12 @@
 
 require('./bootstrap');
 import draggable from 'vuedraggable';
-
 import { LyricLineDetect } from './LyricLineDetect';
-
+import song from './components/Song.vue';
 
 window.draggable = draggable;
+window.song = song;
 window.LyricLineDetect = LyricLineDetect;
-
-
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

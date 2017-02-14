@@ -37,7 +37,7 @@ class SongsController extends Controller
      */
     public function index()
     {
-        $songs = $this->songRepo->getAllOrdered();
+        $songs = $this->songRepo->getAllOrdered(['authors']);
 
         return view('songs.index', compact('songs'));
     }
