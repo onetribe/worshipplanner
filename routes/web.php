@@ -150,6 +150,14 @@ Route::put('/band_roles/{bandRole}', 'BandRolesController@update')
 Route::delete('/band_roles/{bandRole}', 'BandRolesController@destroy')
     ->name('band_roles.delete')
     ->middleware('can:delete,bandRole');
+
+
+Route::delete('/user/{user}/involvement/{bandRole}', 'UserBandRolesController@remove')
+    ->name('user.involvement.remove');
+    
+Route::post('/user/{user}/involvement/{bandRole}', 'UserBandRolesController@add')
+    ->name('user.involvement.add');
+
 /*
 |--------------------------------------------------------------------------
 | User

@@ -104,4 +104,21 @@ class User extends Authenticatable
     {
         return $this->is_superadmin;
     }
+
+    /**
+     * Checks whether this user is admin for the given team
+     *
+     * @param int $teamId
+     * @return bool
+     **/
+    public function isAdminForTeam($teamId)
+    {
+        foreach ($this->teamSubscriptions as $subscription) {
+            if ($subscription->isAdmin() && $teamId == $subscription->team_id) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

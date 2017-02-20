@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use App\BandRole;
 use Illuminate\Http\Request;
 
 class SettingsController extends Controller
@@ -24,10 +25,11 @@ class SettingsController extends Controller
     {
         $user = Auth::user();
         $this->authorize('update', $user);
+        $user->load(['teamSubscriptions', 'teamSubscriptions.team', 'bandRoles']);
 
-        $user->load(['teamSubscriptions', 'teamSubscriptions.team']);
+        $bandRoles = BandRole::all();
 
-        return view('settings.me', compact('user'));
+        return view('settings.me', compact('user', 'bandRoles'));
     }
 
 }

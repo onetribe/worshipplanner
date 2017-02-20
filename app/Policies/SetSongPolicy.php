@@ -4,12 +4,10 @@ namespace App\Policies;
 
 use App\User;
 use App\SetSong;
-use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Database\Eloquent\Model;
 
 class SetSongPolicy extends AbstractTeamAuthPolicy
 {
-    use HandlesAuthorization;
 
     /**
      * Determine whether the user can view the model.
