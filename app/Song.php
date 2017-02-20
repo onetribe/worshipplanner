@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Song extends Model
 {
-	use TeamDependentModelTrait;
+	use TeamDependentModelTrait, HasCreatorTrait, ApiScopesTrait, HasValidationRulesTrait;
 
      /**
      * The attributes that are mass assignable.
@@ -22,6 +22,8 @@ class Song extends Model
         'default_tempo',
         'lyrics',
         'youtube',
+        'default_time_signature',
+        'creator_id',
     ];
 
     /**
@@ -35,6 +37,7 @@ class Song extends Model
         'default_tempo' => 'integer|max:300|nullable',
         'default_key' => 'max:4',
         'youtube' => 'max:255',
+        'default_time_signature' => 'max:5',
     ];
 
     /**
@@ -122,14 +125,5 @@ class Song extends Model
     | Model Methods
     |--------------------------------------------------------------------------
     */
-   
-   /**
-    * Returns the default validation rules for a song
-    *
-    * @return array
-    **/
-   public function getValidationRules()
-   {
-        return $this->defaultValidationRules;
-   }
+
 }

@@ -5,31 +5,43 @@ namespace App\Observers;
 use App\Services\ActiveTeam;
 use App\Services\DateHelperInterface;
 use App\Set;
+use Illuminate\Auth\AuthManager;
 
 class SetObserver
 {
     use SetsActiveTeamOnCreateTrait;
 
     /**
-     * @var DateHelperInterface $dateHelper
+     * @var App\Services\DateHelperInterface $dateHelper
      **/
     protected $dateHelper;
 
     /**
-     * @param DateHelperInterface $dateHelper
-     * @param ActiveTeam $activeTeam
+     * @var Illuminate\Auth\AuthManager $auth
+     **/
+    protected $auth;
+
+    /**
+     * @param App\Services\DateHelperInterface $dateHelper
+     * @param App\Services\ActiveTeam $activeTeam
+     * @param Illuminate\Auth\AuthManager $auth
      * @return void
      **/
-    public function __construct(DateHelperInterface $dateHelper, ActiveTeam $activeTeam)
+    public function __construct(
+        DateHelperInterface $dateHelper, 
+        ActiveTeam $activeTeam,
+        AuthManager $auth
+    )
     {
         $this->dateHelper = $dateHelper;
         $this->activeTeam = $activeTeam;
+        $this->auth = $auth;
     }
 
     /**
      * Listen to the Set saving event.
      *
-     * @param Set $set
+     * @param App\Set $set
      * @return void
      */
     public function saving(Set $set)
@@ -46,12 +58,14 @@ class SetObserver
     /**
      * Listen to the Set creating event.
      *
-     * @param Set $set
+     * @param App\Set $set
      * @return bool|null
      */
     public function creating(Set $set)
     {
-        return $this->setTeamOnCreating($song);
+        $set->creator_id = $this->auth->user()->id;
+
+        return $this->setTeamOnCreating($set);
     }
 
 }

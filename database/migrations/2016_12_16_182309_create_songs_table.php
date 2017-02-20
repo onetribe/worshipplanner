@@ -23,7 +23,9 @@ class CreateSongsTable extends Migration
             $table->unsignedInteger('ccli')->nullable();
             $table->string('default_key', 4)->nullable();
             $table->unsignedSmallInteger('default_tempo')->nullable();
+            $table->string('default_time_signature', 5)->nullable();
             $table->string('youtube', 255)->nullable();
+            $table->unsignedInteger('creator_id')->nullable();
             $table->timestamps();
         });
     }

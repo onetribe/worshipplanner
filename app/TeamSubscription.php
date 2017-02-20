@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class TeamSubscription extends Model
 {
-    use TeamDependentModelTrait;
-
     const ROLE_ADMIN = 1;
     const ROLE_USER = 2;
 
@@ -31,10 +29,9 @@ class TeamSubscription extends Model
     {
         return $this->belongsTo(User::class);
     }
-   
+
     /**
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * Get the team that owns this model.
      */
     public function team()
     {
@@ -65,5 +62,24 @@ class TeamSubscription extends Model
    public function isUser()
    {
         return $this->role == static::ROLE_USER;
+   }
+
+   /**
+    * Get the role name
+    *
+    * @return string
+    **/
+   public function roleName()
+   {
+        switch ($this->role) {
+            case static::ROLE_USER:
+            default:
+                return trans('security.user');    
+                break;
+            case static::ROLE_ADMIN:
+                return trans('security.administrator');    
+                break;
+        }
+         
    }
 }

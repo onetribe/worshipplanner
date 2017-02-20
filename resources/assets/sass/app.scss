@@ -171,9 +171,15 @@ h5 {
   color: color('grey', 'lighten-1');
 }
 .chordLine {
-  color: $secondary-color;
+  color: color('red', 'darken-2');
 }
 .sectionLine {
-  color: color('grey', 'lighten');
+  color: color('grey', 'darken-2');
   font-weight: bold;
+}
+
+.wp-2-columns {
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+  column-count: 2;
 }

@@ -18,6 +18,11 @@ class AddSongsTableConstraints extends Migration
                 ->references('id')
                 ->on('teams')
                 ->onDelete('cascade');
+
+            $table->foreign('creator_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('set null');
         });
     }
 
@@ -30,6 +35,7 @@ class AddSongsTableConstraints extends Migration
     {
         Schema::table('songs', function (Blueprint $table) {
             $table->dropForeign('songs_team_id_foreign');
+            $table->dropForeign('songs_creator_id_foreign');
         });
     }
 }

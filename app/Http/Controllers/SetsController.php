@@ -71,7 +71,7 @@ class SetsController extends Controller
     {
         $viewData = $this->prepareViewData($set);
 
-        return $request->wantsJson() ? response()->json($viewData) : view('sets.view', $viewData);
+        return $request->wantsJson() ? response()->json($viewData) : view('sets.show', $viewData);
     }
 
     /**

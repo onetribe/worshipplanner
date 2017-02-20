@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Team extends Model
 {
+    use HasCreatorTrait;
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -15,8 +17,15 @@ class Team extends Model
         'title',
         'country_code',
         'access_code',
+        'creator_id',
     ];
 
+    /**
+     * @var array
+     **/
+    protected $hidden = [
+        'access_code'
+    ];
     /*
     |--------------------------------------------------------------------------
     | Model Relations

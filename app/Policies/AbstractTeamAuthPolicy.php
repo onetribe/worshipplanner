@@ -115,7 +115,7 @@ abstract class AbstractTeamAuthPolicy
         }
 
         foreach ($user->teamSubscriptions as $teamSubscription) {
-            if ($teamSubscription->isAdmin()) {
+            if ($teamSubscription->isAdmin() && $this->activeTeam->id == $teamSubscription->team_id) {
                 return true;
             }
         }

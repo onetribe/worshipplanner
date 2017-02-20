@@ -1,6 +1,6 @@
 <div class="row">
   <div class="input-field col s6">
-    <input name="when" required id="when" type="date" class="validate datepicker" value="{{ empty($set) ? old('when', $nextSunday->format('j F, Y')) : $set->when->format('j F, Y') }}"  />
+    <input name="when" required id="when" type="text" class="validate datepicker" value="{{ empty($set) ? old('when', $nextSunday->format('j F, Y')) : $set->when->format('j F, Y') }}"  />
     <label for="when">{{ __('sets.date') }} *</label>
   </div>
   <div class="input-field col s6">

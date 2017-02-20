@@ -14,4 +14,5 @@ return [
     "deleted_successfully" => "Deleted successfully!",
     "delete_failed" => "Something went wrong while deleting!",
     "service" => "Service",
+    "profile" => "Profile",
 ];

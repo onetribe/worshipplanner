@@ -35,7 +35,7 @@ class SetSong extends Model
      *
      * @var array
      */
-    protected $appends = ['either_key'];
+    protected $appends = ['either_key', 'either_tempo'];
 
     /*
     |--------------------------------------------------------------------------
@@ -77,7 +77,8 @@ class SetSong extends Model
     public function getEitherLyricsAttribute()
     {
         return $this->song_lyrics ? $this->song_lyrics : $this->song->lyrics;
-    }      
+    }
+
     /**
      * Get the setSong key.. if it doesn't have a key, use the setSong original song's key
      *
@@ -86,6 +87,16 @@ class SetSong extends Model
     public function getEitherKeyAttribute()
     {
         return $this->song_key ? $this->song_key : $this->song->default_key;
+    }
+
+    /**
+     * Get the setSong key.. if it doesn't have a key, use the setSong original song's key
+     *
+     * @return string
+     */
+    public function getEitherTempoAttribute()
+    {
+        return $this->song_tempo ? $this->song_tempo : $this->song->default_tempo;
     }   
 
     /**
@@ -99,13 +110,23 @@ class SetSong extends Model
     }
 
     /**
-     * Just an alias for getEitherLyricsAttribute
+     * Just an alias for getEitherKeyAttribute
      *
      * @return string
      */
     public function getKeyAttribute()
     {
         return $this->getEitherKeyAttribute();
+    }
+
+    /**
+     * Just an alias for getEitherTempoAttribute
+     *
+     * @return string
+     */
+    public function getTempoAttribute()
+    {
+        return $this->getEitherTempoAttribute();
     }
 
     /*

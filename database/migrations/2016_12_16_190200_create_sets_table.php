@@ -20,6 +20,7 @@ class CreateSetsTable extends Migration
             $table->text('description');
             $table->dateTime('when');
             $table->unsignedInteger('service_id')->nullable();
+            $table->unsignedInteger('creator_id')->nullable();
             $table->timestamps();
         });
     }

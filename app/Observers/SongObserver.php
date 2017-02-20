@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Services\ActiveTeam;
 use App\Services\Transposer;
 use App\Song;
+use Illuminate\Auth\AuthManager;
 
 class SongObserver
 {
@@ -17,13 +18,25 @@ class SongObserver
     protected $transposer;
 
     /**
-     * @param ActiveTeam $activeTeam
+     * @var Illuminate\Auth\AuthManager
+     **/
+    protected $auth;
+
+    /**
+     * @param App\Services\ActiveTeam $activeTeam
+     * @param App\Services\Transposer $transposer
+     * @param Illuminate\Auth\AuthManager $auth
      * @return void
      **/
-    public function __construct(ActiveTeam $activeTeam, Transposer $transposer)
+    public function __construct(
+        ActiveTeam $activeTeam, 
+        Transposer $transposer,
+        AuthManager $auth
+    )
     {
         $this->activeTeam = $activeTeam;
         $this->transposer = $transposer;
+        $this->auth = $auth;
     }
 
     /**
@@ -54,6 +67,8 @@ class SongObserver
      */
     public function creating(Song $song)
     {
+        $song->creator_id = $this->auth->user()->id;
+
         return $this->setTeamOnCreating($song);
     }
 

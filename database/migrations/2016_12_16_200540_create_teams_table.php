@@ -18,6 +18,7 @@ class CreateTeamsTable extends Migration
             $table->string('title');
             $table->string('country_code', 2);
             $table->string('access_code', 32);
+            $table->unsignedInteger('creator_id')->nullable();
             $table->timestamps();
         });
     }

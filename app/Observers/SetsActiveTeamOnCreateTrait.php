@@ -2,8 +2,6 @@
 
 namespace App\Observers;
 
-use App\Song;
-
 trait SetsActiveTeamOnCreateTrait
 {
 
@@ -13,13 +11,13 @@ trait SetsActiveTeamOnCreateTrait
     protected $activeTeam;
 
     /**
-     * @param Song $song
+     * @param Illuminate\Database\Eloquent\Model $model
      * @return bool|null
      */
-    public function setTeamOnCreating(Song $song)
+    public function setTeamOnCreating($model)
     {
         if ($team = $this->activeTeam->get()) {
-            $song->team_id = $team->id;
+            $model->team_id = $team->id;
             return true;
         } else {
             return false;

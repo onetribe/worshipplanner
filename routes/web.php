@@ -26,7 +26,7 @@ Route::get('/sets/edit/{set}', 'SetsController@edit')
     ->name('sets.edit')
     ->middleware('can:update,set');
 
-Route::get('/sets/show/{set}', 'SetsController@show')
+Route::get('/sets/view/{set}', 'SetsController@show')
     ->name('sets.view')
     ->middleware('can:view,set');
 
@@ -52,6 +52,10 @@ Route::post('/sets/update/{set}', 'SetsController@update')
 */
 Route::get('/songs', 'SongsController@index')
     ->name('songs.index');
+
+Route::get('/songs/view/{song}', 'SongsController@show')
+    ->name('songs.view')
+    ->middleware('can:view,song');
     
 Route::get('/songs/edit/{song}', 'SongsController@edit')
     ->name('songs.edit')
@@ -94,3 +98,90 @@ Route::post('/set_songs/update/{setSong}', 'SetSongsController@update')
 Route::post('/set_songs/transpose/{setSong}', 'SetSongsController@transpose')
     ->name('set_songs.transpose')
     ->middleware('can:update,setSong');
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Bands
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/bands', 'BandsController@index')
+    ->name('bands.index');
+
+Route::post('/bands', 'BandsController@store')
+    ->name('bands.store')
+    ->middleware('can:create,App\BandRole');
+
+Route::get('/bands/{band}', 'BandsController@show')
+    ->name('bands.view')
+    ->middleware('can:view,band');
+
+Route::put('/bands/{band}', 'BandsController@update')
+    ->name('bands.update')
+    ->middleware('can:update,band');
+
+Route::delete('/bands/{band}', 'BandsController@destroy')
+    ->name('bands.delete')
+    ->middleware('can:delete,band');
+
+/*
+|--------------------------------------------------------------------------
+| Band Roles
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/band_roles', 'BandRolesController@index')
+    ->name('band_roles.index');
+
+Route::post('/band_roles', 'BandRolesController@store')
+    ->name('band_roles.store')
+    ->middleware('can:create,App\BandRole');
+
+Route::get('/band_roles/{bandRole}', 'BandRolesController@show')
+    ->name('band_roles.view')
+    ->middleware('can:view,bandRole');
+
+Route::put('/band_roles/{bandRole}', 'BandRolesController@update')
+    ->name('band_roles.update')
+    ->middleware('can:update,bandRole');
+
+Route::delete('/band_roles/{bandRole}', 'BandRolesController@destroy')
+    ->name('band_roles.delete')
+    ->middleware('can:delete,bandRole');
+/*
+|--------------------------------------------------------------------------
+| User
+|--------------------------------------------------------------------------
+*/
+Route::put('/users/{user}', 'UsersController@update')
+    ->name('users.update')
+    ->middleware('can:update,user');
+
+
+/*
+|--------------------------------------------------------------------------
+| Settings
+|--------------------------------------------------------------------------
+*/
+Route::get('/me', 'SettingsController@me')
+    ->name('me');
+
+/*
+|--------------------------------------------------------------------------
+| Team Subscriptions
+|--------------------------------------------------------------------------
+*/
+Route::delete('/team_subscriptions/{teamSubscription}', 'TeamSubscriptionsController@destroy')
+    ->name('team_subscriptions.delete')
+    ->middleware('can:delete,teamSubscription');
+
+/*
+|--------------------------------------------------------------------------
+| Teams
+|--------------------------------------------------------------------------
+*/
+Route::get('/teams/leave/{team}', 'TeamsController@leave')
+    ->name('teams.leave')
+    ->middleware('can:leave,team');

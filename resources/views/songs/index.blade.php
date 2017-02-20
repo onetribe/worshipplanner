@@ -23,7 +23,10 @@
       <table class="striped">
         <thead>
           <tr>
-              <th data-field="search"><input type="search" name="search_song" placeholder="search" v-model="searchText" /></th>
+              <th data-field="search">
+              <input type="search" name="search_song" placeholder="search" v-model="searchText" />
+
+              </th>
               <th data-field="author">{{ __('authors.authors') }}</th>
               <th data-field="key">{{ __('songs.key') }}</th>
               @if($canManage)
@@ -63,6 +66,7 @@
 </div>
 
 @include('songs._add_modal')
+@include('songs._delete_modal')
 @endsection
 
 @section('scripts')
@@ -70,14 +74,14 @@
     var songs = {!! $songs->toJson() !!};
     var songEditUrl = "{{ route('songs.edit', ['song' => '']) }}";
     var songDeleteUrl = "{{ route('songs.delete', ['song' => '']) }}";
-    var csrfToken = "{{ csrf_token() }}";
-    
+
     app = new Vue({ 
         el: '#index-songs',
         data: {
             songs: songs,
             //filteredSongs: songs,
-            searchText: ""
+            searchText: "",
+            songToDeleteId: null
         },
         computed: {
           filteredSongs: function () {
@@ -97,13 +101,14 @@
             window.location.href = songEditUrl + "/" + id;
           },
           deleteSong: function (id) {
-            window.location.href = songDeleteUrl + "/" + id;
+            this.songToDeleteId = id;
+            $("#delete-song-modal").modal('open');
+           // window.location.href = songDeleteUrl + "/" + id;
+          },
+          confirmDelete: function () {
+console.log(this.songToDeleteId);
+            window.location.href = songDeleteUrl + "/" + this.songToDeleteId;
           }
-//            filterSongs: function () {
-//                this.filteredSongs = this.songs.filter(function (song) {
-//                  return song.full_title.search(this.searchText) >= 0 ? true : false;
-//                }, this);
-//            }
         }
     });
 </script>

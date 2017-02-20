@@ -14,6 +14,8 @@ return [
     'first_name' => 'First Name',
     'last_name' => 'Last Name',
     'email' => 'E-mail address',
+    'current_password' => 'Current Password',
+    'new_password' => 'New Password',
     'password' => 'Password',
     'confirm_password' => 'Confirm Password',
     'register' => 'Register',

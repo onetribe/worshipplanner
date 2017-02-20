@@ -78,7 +78,20 @@
       </ul>
       
       <div v-for="(setSong, index) in set.set_songs" v-show="selected == index">
-        <h5><div class="chip">@{{ setSong.either_key }}</div> @{{ setSong.song.full_title }}</h5>
+        <h5>
+          <div class="chip tooltipped" v-show="setSong.either_tempo"
+              data-position="bottom" 
+              data-delay="50" 
+              data-tooltip="{{ __('songs.tempo') }}" >@{{ setSong.either_tempo }}</div>
+          <div class="chip tooltipped" v-if="setSong.song.default_time_signature"
+              data-position="bottom" 
+              data-delay="50" 
+              data-tooltip="{{ __('songs.time_signature') }}" >@{{ setSong.song.default_time_signature }}</div>
+          <div class="chip tooltipped" v-if="setSong.either_key"
+              data-position="bottom" 
+              data-delay="50" 
+              data-tooltip="{{ __('songs.key') }}" >@{{ setSong.either_key }}</div> 
+          @{{ setSong.song.full_title }}</h5>
         <h6 class="grey-text" >@{{ setSong.song.author_list }}</h6>
         <textarea 
             :id="'song-lyrics-'+setSong.id" 

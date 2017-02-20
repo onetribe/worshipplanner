@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Set extends Model
 {
-    use TeamDependentModelTrait;
+    use TeamDependentModelTrait, HasCreatorTrait, HasValidationRulesTrait;
 
      /**
      * The attributes that are mass assignable.
@@ -82,13 +82,4 @@ class Set extends Model
     |--------------------------------------------------------------------------
     */
     
-    /**
-    * Returns the default validation rules for a setsong
-    *
-    * @return array
-    **/
-   public function getValidationRules()
-   {
-        return $this->defaultValidationRules;
-   }
 }

@@ -16,4 +16,5 @@ return [
     "show_chords" => "Show Chords",
     "show_comments" => "Show Comments",
     "show_sections" => "Show Sections",
+    "show_columns" => "Show Columns",
 ];

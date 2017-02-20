@@ -24,6 +24,11 @@ class AddSetsTableConstraints extends Migration
                 ->references('id')
                 ->on('services')
                 ->onDelete('set null');
+                
+            $table->foreign('creator_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('set null');
         });
     }
 
@@ -37,6 +42,7 @@ class AddSetsTableConstraints extends Migration
         Schema::table('sets', function (Blueprint $table) {
             $table->dropForeign('sets_team_id_foreign');
             $table->dropForeign('sets_service_id_foreign');
+            $table->dropForeign('sets_creator_id_foreign');
         });
     }
 }

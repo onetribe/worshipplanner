@@ -1,5 +1,5 @@
 <template>
-    <div v-html="lyricsFormatted">
+    <div :class="classObject" v-html="lyricsFormatted">
     </div>
 </template>
 
@@ -20,13 +20,26 @@
             'showingComments': {
               'type': Boolean,
               'default': true
+            },
+            'showingColumns': {
+              'type': Boolean,
+              'default': false
             }
         },
         computed: {
             lyrics: function () {
+                if (this.song.lyrics) {
+                    return this.song.lyrics;
+                }
+
                 return this.song.song_lyrics 
                     ? this.song.song_lyrics 
                     : (this.song.song ? this.song.song.lyrics : "");
+            },
+            classObject: function () {
+                return {
+                  'wp-2-columns': this.showingColumns
+                }
             },
             lyricsFormatted: function () {
                 var lines = this.lyrics.split("\n");
@@ -41,7 +54,9 @@
                         className = "chordLine";
                         if (this.showingChords) {
                             line = line.substring(1, line.length);
-                            line = line.replace(/ /g, '\u00a0');    
+                            line = line.replace(/ /g, '\u00a0');
+                            //indent line
+                            line = this.showingColumns ? line : "\u00a0\u00a0\u00a0\u00a0" + line;
                         } else {
                             hideLine = true;
                         }
@@ -60,6 +75,8 @@
                         }
                     } else if (line[0] == " ") {
                         line = line.substring(1,line.length);
+                        //indent line
+                        line = this.showingColumns ? line : "\u00a0\u00a0\u00a0\u00a0" + line;
                     }
 
                     if (!hideLine) {

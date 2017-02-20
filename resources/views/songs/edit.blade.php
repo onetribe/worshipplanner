@@ -7,6 +7,12 @@
            data-delay="50" 
            data-tooltip="{{ __('songs.back') }}" 
            href="{{ route('songs.index') }}"><i class="material-icons">skip_previous</i></a>
+
+        <a class="waves-effect waves-light tooltipped" 
+           data-position="bottom" 
+           data-delay="50" 
+           data-tooltip="{{ __('common.delete') }}" 
+           href="{{ route('songs.delete', ['song' => $song]) }}"><i class="material-icons">delete</i></a>
     </li>
 @endsection
 
@@ -23,7 +29,7 @@
             <div class="card-content">
               <div class="row">
                 <div class="input-field col s12">
-                  <textarea style="min-height:270px;" id="lyrics" name="lyrics" class="materialize-textarea">{{ $song->lyrics }}</textarea>
+                  <textarea style="min-height:270px;" id="lyrics" name="lyrics" class="materialize-textarea song-lyrics-textarea">{{ $song->lyrics }}</textarea>
                   <label for="lyrics">Lyrics</label>
                 </div>
                 <div class="right">
@@ -50,11 +56,15 @@
                   <input type="number" step="1" id="ccli" name="ccli" type="text" class="validate" value="{{ $song->ccli}}">
                   <label for="ccli">{{ __('songs.ccli_number') }}</label>
                 </div>
-                <div class="input-field col s3">
+                <div class="input-field col s2">
                   @include('songs._key_select', ['selectedKey' => $song->default_key])
                   <label>{{ __('songs.key') }}</label>
                 </div>
-                <div class="input-field col s4">
+                <div class="input-field col s3">
+                  @include('songs._time_signature_select', ['selectedTimeSignature' => $song->default_time_signature])
+                  <label>{{ __('songs.time_signature') }}</label>
+                </div>
+                <div class="input-field col s2">
                   <input type="number" step="1" id="default_tempo" name="default_tempo" type="text" class="validate" value="{{ $song->default_tempo }}">
                   <label for="default_tempo">{{ __('songs.tempo') }}</label>
                 </div>

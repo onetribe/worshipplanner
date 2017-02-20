@@ -17,6 +17,13 @@ class Service extends Model
         'title',
     ];
 
+    /**
+     * @var array
+     **/
+    protected $defaultValidationRules = [
+        'title' => 'required|max:255',
+    ];
+
 
     /*
     |--------------------------------------------------------------------------

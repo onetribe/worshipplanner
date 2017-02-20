@@ -75,7 +75,7 @@ class SongsController extends Controller
      */
     public function show(Song $song)
     {
-        //
+        return view('songs.show', compact('song'));
     }
 
     /**
@@ -144,6 +144,7 @@ class SongsController extends Controller
             'ccli',
             'default_key',
             'default_tempo',
+            'default_time_signature',
             'youtube',
         ]);
 

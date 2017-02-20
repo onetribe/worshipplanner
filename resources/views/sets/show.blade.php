@@ -30,7 +30,7 @@
       <div class="row">
         <ul class="collection col s12 sets-edit-collection">
           <li class="collection-item cursorPointer avatar" v-for="(setSong, index) in set.set_songs" v-on:click="selectSong(index)" >
-              <i class="circle">@{{ setSong.either_key }}</i>
+              <i class="circle" v-if="setSong.either_key">@{{ setSong.either_key }}</i>
               <span class="title" >@{{ setSong.song.title }}</span><br/>
           </li>
         </ul>
@@ -49,6 +49,10 @@
               <input type="checkbox" class="filled-in" id="show-sections-box" v-model="showingSections"/>
               <label for="show-sections-box">{{ __('sets.show_sections') }}</label>
             </p>
+            <p>
+              <input type="checkbox" class="filled-in" id="show-columns-box" v-model="showingColumns"/>
+              <label for="show-columns-box">{{ __('sets.show_columns') }}</label>
+            </p>
       </div>
     </div>
   </div>
@@ -61,14 +65,29 @@
   <div class="card" v-show="selected != null">
     <div class="card-content">
       <div v-for="(setSong, index) in set.set_songs" v-show="selected == index">
-        <h5><div class="chip">@{{ setSong.either_key }}</div> @{{ setSong.song.full_title }}</h5>
+        <h5>
+          <div class="chip right tooltipped" v-show="setSong.either_tempo"
+              data-position="bottom" 
+              data-delay="50" 
+              data-tooltip="{{ __('songs.tempo') }}" >@{{ setSong.either_tempo }}</div>
+          <div class="chip tooltipped right" v-if="setSong.song.default_time_signature"
+              data-position="bottom" 
+              data-delay="50" 
+              data-tooltip="{{ __('songs.time_signature') }}" >@{{ setSong.song.default_time_signature }}</div>
+          <div class="chip tooltipped right" v-if="setSong.either_key"
+              data-position="bottom" 
+              data-delay="50" 
+              data-tooltip="{{ __('songs.key') }}" >@{{ setSong.either_key }}</div>  
+          @{{ setSong.song.full_title }}
+        </h5>
         <h6 class="grey-text " >@{{ setSong.song.author_list }}</h6>
         <div class="">
-          <song :song="setSong" 
+          <wpsong :song="setSong" 
                 :showing-chords="showingChords" 
                 :showing-sections="showingSections" 
                 :showing-comments="showingComments"
-          ></song>
+                :showing-columns="showingColumns"
+          ></wpsong>
         </div>
       </div>
       
@@ -96,10 +115,11 @@
             selected: null,
             showingChords: true,
             showingSections: true,
-            showingComments: true
+            showingComments: true,
+            showingColumns: false
         },
         components: {
-          song
+          wpsong
         },
         computed: {
             currentSong: function () {

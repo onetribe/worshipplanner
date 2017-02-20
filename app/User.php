@@ -70,6 +70,15 @@ class User extends Authenticatable
         return $this->belongsTo(Team::class, "last_team_id");
     }
 
+    /**
+     * Get all of the band roles the user has. ie. what intstruments/roles do they play
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function bandRoles()
+    {
+        return $this->morphToMany(BandRole::class, 'has_band_role', 'has_band_roles', 'has_band_role_id', 'band_role_id');
+    }
     /*
     |--------------------------------------------------------------------------
     | Model Methods
