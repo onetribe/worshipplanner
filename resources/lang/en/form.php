@@ -12,6 +12,7 @@ return [
     */
 
     'first_name' => 'First Name',
+    'middle_name' => 'Middle Name',
     'last_name' => 'Last Name',
     'email' => 'E-mail address',
     'current_password' => 'Current Password',
@@ -23,5 +24,6 @@ return [
     'team_name' => 'Team Name',
     'country' => 'Country',
     'save' => 'Save',
+    'title' => 'Title',
 
 ];

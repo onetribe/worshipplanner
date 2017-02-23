@@ -17,4 +17,7 @@ return [
     "delete_failed" => "Something went wrong while deleting!",
     "service" => "Service",
     "profile" => "Profile",
+    "sets" => "Sets",
+    "songs" => "Songs",
+    "team_settings" => "Team Settings",
 ];

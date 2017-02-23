@@ -154,7 +154,7 @@ Route::delete('/band_roles/{bandRole}', 'BandRolesController@destroy')
 
 Route::delete('/user/{user}/involvement/{bandRole}', 'UserBandRolesController@remove')
     ->name('user.involvement.remove');
-    
+
 Route::post('/user/{user}/involvement/{bandRole}', 'UserBandRolesController@add')
     ->name('user.involvement.add');
 
@@ -176,14 +176,26 @@ Route::put('/users/{user}', 'UsersController@update')
 Route::get('/me', 'SettingsController@me')
     ->name('me');
 
+Route::get('/team_settings', 'SettingsController@team')
+    ->name('settings.team');
 /*
 |--------------------------------------------------------------------------
 | Team Subscriptions
 |--------------------------------------------------------------------------
 */
+Route::get('/team_subscriptions', 'TeamSubscriptionsController@index')
+    ->name('team_subscriptions.index')
+    ->middleware('can:index,App\TeamSubscription');
+
 Route::delete('/team_subscriptions/{teamSubscription}', 'TeamSubscriptionsController@destroy')
     ->name('team_subscriptions.delete')
     ->middleware('can:delete,teamSubscription');
+
+Route::delete('/team_subscriptions/membership/{user}', 'TeamSubscriptionsController@remove')
+    ->name('team_subscriptions.membership.remove');
+
+Route::put('/team_subscriptions/change_role/{user}', 'TeamSubscriptionsController@changeRole')
+    ->name('team_subscriptions.change_role');
 
 /*
 |--------------------------------------------------------------------------
@@ -193,3 +205,56 @@ Route::delete('/team_subscriptions/{teamSubscription}', 'TeamSubscriptionsContro
 Route::get('/teams/leave/{team}', 'TeamsController@leave')
     ->name('teams.leave')
     ->middleware('can:leave,team');
+
+
+/*
+|--------------------------------------------------------------------------
+| Services
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/services', 'ServicesController@index')
+    ->name('services.index');
+
+Route::post('/services', 'ServicesController@store')
+    ->name('services.store')
+    ->middleware('can:create,App\Service');
+
+Route::get('/services/{service}', 'ServicesController@show')
+    ->name('services.view')
+    ->middleware('can:view,service');
+
+Route::put('/services/{service}', 'ServicesController@update')
+    ->name('services.update')
+    ->middleware('can:update,service');
+
+Route::delete('/services/{service}', 'ServicesController@destroy')
+    ->name('services.delete')
+    ->middleware('can:delete,service');
+
+
+/*
+|--------------------------------------------------------------------------
+| Authors
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/authors', 'AuthorsController@index')
+    ->name('authors.index');
+
+Route::post('/authors', 'AuthorsController@store')
+    ->name('authors.store')
+    ->middleware('can:create,App\Author');
+
+Route::get('/authors/{author}', 'AuthorsController@show')
+    ->name('authors.view')
+    ->middleware('can:view,author');
+
+Route::put('/authors/{author}', 'AuthorsController@update')
+    ->name('authors.update')
+    ->middleware('can:update,author');
+
+Route::delete('/authors/{author}', 'AuthorsController@destroy')
+    ->name('authors.delete')
+    ->middleware('can:delete,author');
+    

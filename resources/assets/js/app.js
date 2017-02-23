@@ -10,11 +10,19 @@ import draggable from 'vuedraggable';
 import { LyricLineDetect } from './LyricLineDetect';
 import wpsong from './components/Wpsong.vue';
 import wpform from './components/WPform.vue';
+import manageteammembers from './components/ManageTeamMembers.vue';
+import manageservices from './components/ManageServices.vue';
+import manageauthors from './components/ManageAuthors.vue';
+import managebandroles from './components/ManageBandRoles.vue';
 
 window.draggable = draggable;
 window.wpsong = wpsong;
 window.LyricLineDetect = LyricLineDetect;
 window.wpform  = wpform;
+window.manageteammembers  = manageteammembers;
+window.manageservices  = manageservices;
+window.manageauthors  = manageauthors;
+window.managebandroles  = managebandroles;
 
 
   $(function(){
@@ -30,6 +38,8 @@ window.wpform  = wpform;
           $('.picker').appendTo('body');
         }
     });
+
+    $('ul.tabs').tabs();
 
     window.setTimeout(function () {
         $('.alert-box').fadeOut('slow');

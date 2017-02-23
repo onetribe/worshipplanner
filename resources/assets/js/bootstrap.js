@@ -27,8 +27,11 @@ require('vue-resource');
 
 Vue.http.interceptors.push((request, next) => {
     request.headers.set('X-CSRF-TOKEN', Laravel.csrfToken);
+    $('.wp-loader').show();
 
-    next();
+    next((response) => {
+        $('.wp-loader').hide();
+    });
 });
 
 /**

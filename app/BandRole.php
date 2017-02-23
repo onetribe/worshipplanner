@@ -23,7 +23,22 @@ class BandRole extends Model
     protected $defaultValidationRules = [
         'title' => 'required|max:255',
     ];
-
+    
+    /*
+    |--------------------------------------------------------------------------
+    | API order
+    |--------------------------------------------------------------------------
+    */
+    /**
+     * Ordering for the API query
+     *
+     * @param \Illuminate\Database\Eloquent\Builder  $query
+     * @return void
+     **/
+    public function addDefaultOrderBy($query)
+    {
+        $query->orderBy('title', 'ASC');
+    }
 
     /*
     |--------------------------------------------------------------------------

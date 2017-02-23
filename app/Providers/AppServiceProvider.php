@@ -35,5 +35,9 @@ class AppServiceProvider extends ServiceProvider
             return new DateHelper($this->app->make(AuthManager::class));
         });
         $this->app->alias(DateHelperInterface::class, "date_helper");
+
+        if ($this->app->environment('local')) {
+            $this->app->register('Barryvdh\Debugbar\ServiceProvider');
+        }
     }
 }

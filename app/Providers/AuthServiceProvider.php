@@ -2,14 +2,17 @@
 
 namespace App\Providers;
 
+use App\Author;
 use App\Band;
 use App\BandRole;
+use App\Service;
 use App\Set;
 use App\SetSong;
 use App\Song;
 use App\Team;
 use App\TeamSubscription;
 use App\User;
+use App\Policies\AuthorPolicy;
 use App\Policies\DefaultTeamAuthPolicy;
 use App\Policies\SetPolicy;
 use App\Policies\SetSongPolicy;
@@ -36,6 +39,8 @@ class AuthServiceProvider extends ServiceProvider
         User::class => UserPolicy::class,
         TeamSubscription::class => TeamSubscriptionPolicy::class,
         Team::class => TeamPolicy::class,
+        Service::class => DefaultTeamAuthPolicy::class,
+        Author::class => AuthorPolicy::class,
     ];
 
     /**

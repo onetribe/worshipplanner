@@ -6,12 +6,22 @@ trait ApiScopesTrait
 {
 
     /**
-     * Can be implemented by extending repository to set the default ordering
+     * Can be implemented by model to set the default ordering
      *
      * @param \Illuminate\Database\Eloquent\Builder  $query
      * @return void
      **/
     public function addDefaultOrderBy($query)
+    {
+    }
+
+    /**
+     * Can be implemented by model to add additional criteria to the query builder
+     *
+     * @param \Illuminate\Database\Eloquent\Builder  $query
+     * @return void
+     **/
+    public function addToApiQuery($query)
     {
     }
 
@@ -38,8 +48,9 @@ trait ApiScopesTrait
             $query->forPage($page, $perPage);
         }
 
+        $this->addToApiQuery($query);
         $this->addDefaultOrderBy($query);
-
+        
         return $query;
     }
 }

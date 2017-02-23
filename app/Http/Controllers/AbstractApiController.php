@@ -186,8 +186,7 @@ abstract class AbstractApiController extends Controller
         
         $manager = $this->getFractalManager($request);
 
-        $items = $this->model
-            ->newQuery()
+        $items = $this->getDefaultQuery()
             ->multiForApi($ids, $page, $perPage)
             ->get($fields);
 
@@ -200,6 +199,16 @@ abstract class AbstractApiController extends Controller
         $resource->setMeta($meta);
 
         return $manager->createData($resource);
+    }
+
+    /**
+     * Return the default base query to use when fetching items
+     *
+     * @return Illuminate\Database\Eloquent\Builder
+     **/
+    public function getDefaultQuery()
+    {
+        return $this->model->newQuery();
     }
 
     /**

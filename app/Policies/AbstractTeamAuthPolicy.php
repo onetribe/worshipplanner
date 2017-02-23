@@ -32,6 +32,26 @@ abstract class AbstractTeamAuthPolicy
     }
 
     /**
+     * Determine whether the user can view the index
+     *
+     * @param  \App\User  $user
+     *
+     * @return mixed
+     */
+    public function index(User $user)
+    {
+        if ($user->teams->count() == 0) {
+            return false;
+        }
+
+        $activeTeam = $this->activeTeam->get();
+
+        $teamIds = $user->teams->pluck('id')->toArray();
+        
+        return in_array($activeTeam->id, $teamIds);
+    }
+
+    /**
      * Determine whether the user can create sets.
      *
      * @param  \App\User  $user
@@ -115,7 +135,7 @@ abstract class AbstractTeamAuthPolicy
         }
 
         foreach ($user->teamSubscriptions as $teamSubscription) {
-            if ($teamSubscription->isAdmin() && $this->activeTeam->id == $teamSubscription->team_id) {
+            if ($teamSubscription->isAdmin() && $this->activeTeam->get()->id == $teamSubscription->team_id) {
                 return true;
             }
         }
@@ -124,7 +144,7 @@ abstract class AbstractTeamAuthPolicy
     }
 
     /**
-     * Determine whether the user can update the song.
+     * Determine whether the user can update the model.
      *
      * @param  \App\User  $user
      * @param  Illuminate\Database\Eloquent\Model $model

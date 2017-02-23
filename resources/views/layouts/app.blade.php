@@ -2,8 +2,8 @@
 
 <ul id="slide-out" class="side-nav">
   <li><a href="index.php"><h5 style="font-weight: 600;">WORSHIP SETS</h5></a></li>
-  <li><a class="waves-effect" href="{{ route('sets.index') }}"><i class="material-icons">list</i>Sets</a></li>
-  <li><a class="waves-effect" href="{{ route('songs.index') }}"><i class="material-icons">queue_music</i>Songs</a></li>
+  <li><a class="waves-effect" href="{{ route('sets.index') }}"><i class="material-icons">list</i>{{ __('common.sets') }}</a></li>
+  <li><a class="waves-effect" href="{{ route('songs.index') }}"><i class="material-icons">queue_music</i>{{ __('common.songs') }}</a></li>
   <li><div class="divider"></div></li>
   <li class="no-padding">
     <ul class="collapsible collapsible-accordion">
@@ -11,7 +11,10 @@
         <a class="collapsible-header">Settings<i class="material-icons">arrow_drop_down</i></a>
         <div class="collapsible-body">
           <ul>
-            <li><a href="{{ route('me') }}">{{ __('common.profile') }}</a></li>
+            <li><a href="{{ route('me') }}"><i class="material-icons">perm_identity</i> {{ __('common.profile') }}</a></li>
+            @can('update', app(\App\Services\ActiveTeam::class)->get())
+            <li><a href="{{ route('settings.team') }}"><i class="material-icons">settings</i> {{ __('common.team_settings') }}</a></li>
+            @endcan
           </ul>
         </div>
       </li>
@@ -30,6 +33,8 @@
   </li>
 </ul>
 
+<div class="wp-loader">
+</div>
 <nav>
   <div class="nav-wrapper">
     <ul class="left">

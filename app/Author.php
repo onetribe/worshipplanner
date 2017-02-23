@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Author extends Model
 {
+    use ApiScopesTrait;
+
      /**
      * The attributes that are mass assignable.
      *
@@ -47,6 +49,25 @@ class Author extends Model
     public function team()
     {
         return $this->belongsTo(Team::class);
+    }
+
+    
+    /*
+    |--------------------------------------------------------------------------
+    | API order
+    |--------------------------------------------------------------------------
+    */
+    /**
+     * Ordering for the API query
+     *
+     * @param \Illuminate\Database\Eloquent\Builder  $query
+     * @return void
+     **/
+    public function addDefaultOrderBy($query)
+    {
+        $query->orderBy('last_name', 'ASC')
+            ->orderBy('first_name', 'ASC')
+            ->orderBy('middle_name', 'ASC');
     }
 
     /*

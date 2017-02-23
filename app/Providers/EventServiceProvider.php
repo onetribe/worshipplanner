@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Observers\AuthorObserver;
 use App\Observers\BandObserver;
 use App\Observers\BandRoleObserver;
 use App\Observers\ServiceObserver;
@@ -10,6 +11,7 @@ use App\Observers\SetSongObserver;
 use App\Observers\SongObserver;
 use App\Observers\TeamObserver;
 use App\Observers\UserObserver;
+use App\Author;
 use App\Band;
 use App\BandRole;
 use App\Service;
@@ -51,5 +53,6 @@ class EventServiceProvider extends ServiceProvider
         Service::observe(ServiceObserver::class);
         Band::observe(BandObserver::class);
         BandRole::observe(BandRoleObserver::class);
+        Author::observe(AuthorObserver::class);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\User;
 use App\Song;
+use Illuminate\Database\Eloquent\Model;
 
 class TeamSubscriptionPolicy extends AbstractTeamAuthPolicy
 {

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Service extends Model
 {
-    use TeamDependentModelTrait;
+    use TeamDependentModelTrait, ApiScopesTrait;
 
      /**
      * The attributes that are mass assignable.

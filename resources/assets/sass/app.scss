@@ -183,3 +183,39 @@ h5 {
   -moz-column-count: 2;
   column-count: 2;
 }
+
+.wp-loader {
+  display: none;
+  height: 3px;
+  width: 100%;
+  position: fixed;
+  top:0;
+  overflow: hidden;
+  background-color: #ddd;
+}
+.wp-loader:before{
+  display: block;
+  position: absolute;
+  content: "";
+  left: -200px;
+  width: 200px;
+  height: 3px;
+  background-color: $secondary-color;
+  animation: loading 2s linear infinite;
+}
+
+@keyframes loading {
+    from {left: -200px; width: 30%;}
+    50% {width: 30%;}
+    70% {width: 70%;}
+    80% { left: 50%;}
+    95% {left: 120%;}
+    to {left: 100%;}
+}
+
+.success {
+  background-color: $success-color;
+}
+.failure {
+  background-color: $error-color;
+}
