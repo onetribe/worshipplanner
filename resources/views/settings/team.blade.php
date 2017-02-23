@@ -44,6 +44,15 @@
           </div>
           <div id="bands" class="col s12" v-if="selectedTab == 'bands'">
             <h4 class="card-title hide-on-med-and-up">{{ __('settings.bands') }}</h4>
+            <managebands
+              :index-url="bandsIndexUrl" 
+              :add-url="bandsAddUrl" 
+              :remove-url="bandsRemoveUrl" 
+              :band-roles-index-url="bandRolesIndexUrl" 
+              :add-user-to-band-url="addUserToBandUrl" 
+              :remove-user-from-band-url="removeUserFromBandUrl" 
+              :users-index-url="usersIndexUrl" 
+              :dictionary="bandsDictionary"/>
           </div>
           <div id="services" class="col s12" v-if="selectedTab == 'services'">
             <h4 class="card-title hide-on-med-and-up">{{ __('settings.services') }}</h4>
@@ -129,6 +138,24 @@ var bandRolesDictionary = {
   'please_add_title': '{{ __('validation.required', ['attribute' => trans('form.title')]) }}'  
 };
 
+var usersIndexUrl = "{{ route('users.index') }}";
+var bandsIndexUrl = "{{ route('bands.index', ['include' => 'bandSubscriptions,bandSubscriptions.user,bandSubscriptions.bandRoles']) }}";
+var bandsRemoveUrl = "{{ route('bands.delete', ['bandRole' => '']) }}";
+var bandsAddUrl = "{{ route('bands.store') }}";
+var addUserToBandUrl = "{{ route('bands.user.add', ['band' => 'bandId', 'user' => 'userId']) }}";
+var removeUserFromBandUrl = "{{ route('bands.user.remove', ['band' => 'bandId', 'user' => 'userId']) }}";
+var bandsDictionary = {
+  'create_new': '{{ __('bands.create_new') }}',
+  'delete': '{{ __('common.delete') }}',
+  'title': '{{ __('bands.title') }}',
+  'save': '{{ __('form.save') }}',
+  'please_add_title': '{{ __('bands.please_add_title') }}',
+  'normally_plays': '{{ __('bands.normally_plays') }}',
+  'member': '{{ __('bands.member') }}',
+  'select_band_role': '{{ __('band_roles.select_band_role') }}',
+  'add_user': '{{ __('common.add_user') }}'
+};
+
 var userSettings = new Vue({
     el: '#team-settings',
     data: {
@@ -149,13 +176,21 @@ var userSettings = new Vue({
       bandRolesRemoveUrl: bandRolesRemoveUrl,
       bandRolesAddUrl: bandRolesAddUrl,
       bandRolesDictionary: bandRolesDictionary,
+      bandsIndexUrl: bandsIndexUrl,
+      bandsRemoveUrl: bandsRemoveUrl,
+      bandsAddUrl: bandsAddUrl,
+      addUserToBandUrl: addUserToBandUrl,
+      removeUserFromBandUrl: removeUserFromBandUrl,
+      usersIndexUrl: usersIndexUrl,
+      bandsDictionary: bandsDictionary,
       userId: userId
     },
     components: {
       manageteammembers,
       manageservices,
       manageauthors,
-      managebandroles
+      managebandroles,
+      managebands
     },
     methods: {
       selectTab: function (tabName) {
@@ -163,9 +198,6 @@ var userSettings = new Vue({
       }
     },
     mounted: function () {
-      //this.$http.get(teamSubscriptionsIndexUrl).then(function (Response) {
-      //  console.log(Response.body);
-      //});
     }
 });
 

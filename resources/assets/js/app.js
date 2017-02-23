@@ -14,6 +14,7 @@ import manageteammembers from './components/ManageTeamMembers.vue';
 import manageservices from './components/ManageServices.vue';
 import manageauthors from './components/ManageAuthors.vue';
 import managebandroles from './components/ManageBandRoles.vue';
+import managebands from './components/ManageBands.vue';
 
 window.draggable = draggable;
 window.wpsong = wpsong;
@@ -23,6 +24,7 @@ window.manageteammembers  = manageteammembers;
 window.manageservices  = manageservices;
 window.manageauthors  = manageauthors;
 window.managebandroles  = managebandroles;
+window.managebands  = managebands;
 
 
   $(function(){

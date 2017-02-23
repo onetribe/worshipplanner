@@ -31,4 +31,22 @@ class Band extends Model
     |--------------------------------------------------------------------------
     */
 
+    /**
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function bandSubscriptions()
+    {
+        return $this->hasMany(BandSubscription::class);
+    }
+
+    /**
+     * Get all users associated with this band
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
+     */
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'band_subscriptions');
+    }
 }

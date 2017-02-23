@@ -35,7 +35,11 @@
                     {{ author.name }}
                 </td>
                 <td>
-                    <a v-if="!author.is_default" class="waves-effect waves-light btn-flat" v-on:click="remove(author.id)">{{ dictionary.delete }}</a>
+                    <a v-if="!author.is_default" 
+                       class="waves-effect waves-light btn-flat" 
+                       v-on:click="remove(author.id)"
+                    ><i class="material-icons">delete</i></a>
+                    
                 </td>
             </tr>
         </table>

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Band;
-use App\Transformers\BasicTransformer;
+use App\Transformers\BandTransformer;
 use Illuminate\Http\Request;
 
 class BandsController extends AbstractApiController
@@ -17,10 +17,10 @@ class BandsController extends AbstractApiController
     ];
 
     /**
-     * @param App\Transformers\BasicTransformer $bandTransformer
+     * @param App\Transformers\BandTransformer $bandTransformer
      * @return void
      **/
-    public function __construct(BasicTransformer $bandTransformer)
+    public function __construct(BandTransformer $bandTransformer)
     {
         $this->middleware('auth');
         $this->model = new Band;

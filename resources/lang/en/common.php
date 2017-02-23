@@ -20,4 +20,5 @@ return [
     "sets" => "Sets",
     "songs" => "Songs",
     "team_settings" => "Team Settings",
+    "add_user" => "Add User",
 ];

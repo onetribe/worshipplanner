@@ -23,8 +23,10 @@
                 <td>
                     {{ band_role.title }}
                 </td>
-                <td>
-                    <a class="waves-effect waves-light btn-flat" v-on:click="remove(band_role.id)">{{ dictionary.delete }}</a>
+                <td width="80">
+                    <a class="waves-effect waves-light btn-flat" 
+                       v-on:click="remove(band_role.id)"
+                    ><i class="material-icons">delete</i></a>
                 </td>
             </tr>
         </table>

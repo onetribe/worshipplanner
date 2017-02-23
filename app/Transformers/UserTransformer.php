@@ -16,6 +16,7 @@ class UserTransformer extends AbstractTransformer
             'id' => (int) $model->id,
             'first_name' => (string) $model->first_name,
             'last_name' => (string) $model->last_name,
+            'name' => (string) $model->name,
             'email' => (string) $model->email,
             'timezone' => (string) $model->timezone,
         ], $this->transformTimestamps($model));

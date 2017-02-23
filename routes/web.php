@@ -126,6 +126,13 @@ Route::delete('/bands/{band}', 'BandsController@destroy')
     ->name('bands.delete')
     ->middleware('can:delete,band');
 
+
+
+Route::delete('/bands/{band}/user/{user}', 'UserBandsController@remove')
+    ->name('bands.user.remove');
+
+Route::post('/bands/{band}/user/{user}', 'UserBandsController@add')
+    ->name('bands.user.add');
 /*
 |--------------------------------------------------------------------------
 | Band Roles
@@ -166,6 +173,9 @@ Route::post('/user/{user}/involvement/{bandRole}', 'UserBandRolesController@add'
 Route::put('/users/{user}', 'UsersController@update')
     ->name('users.update')
     ->middleware('can:update,user');
+    
+Route::get('/users', 'UsersController@index')
+    ->name('users.index');
 
 
 /*

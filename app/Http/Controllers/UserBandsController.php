@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Auth;
-use App\BandRole;
+use App\Band;
+use App\BandSubscription;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Http\Request;
 
-class UserBandRolesController extends AbstractApiController
+class UserBandsController extends AbstractApiController
 {
     use HandlesAuthorization;
 
@@ -23,17 +24,17 @@ class UserBandRolesController extends AbstractApiController
 
 
     /**
-     * Removes the given band role from the given user
+     * Removes the given user from the given band
      *
+     * @param App\Band $band
      * @param App\User $user
-     * @param App\BandRole $bandRole
      * @return \Illuminate\Http\Response
      */
-    public function remove(Request $request, User $user, BandRole $bandRole)
+    public function remove(Request $request, Band $band, User $user)
     {
-        $this->authorizeCheck($user, $bandRole);
+        $this->authorizeCheck($user, $band);
 
-        $user->bandRoles()->detach($bandRole);
+        BandSubscription::where(['user_id' => $user->id, 'band_id' => $band->id])->delete();
 
         $data = [
             'meta' => [
@@ -46,15 +47,15 @@ class UserBandRolesController extends AbstractApiController
     /**
      * Adds the given band role to the given user
      *
+     * @param App\Band $band
      * @param App\User $user
-     * @param App\BandRole $bandRole
      * @return \Illuminate\Http\Response
      */
-    public function add(Request $request, User $user, BandRole $bandRole)
+    public function add(Request $request, Band $band, User $user)
     {
-        $this->authorizeCheck($user, $bandRole);
+        $this->authorizeCheck($user, $band);
 
-        $user->bandRoles()->attach($bandRole);
+        BandSubscription::create(['user_id' => $user->id, 'band_id' => $band->id]);
 
         $data = [
             'meta' => [
@@ -68,17 +69,17 @@ class UserBandRolesController extends AbstractApiController
      * Checks whether the auth user is allowed to perform this action
      *
      * @param App\User $user
-     * @param App\BandRole $bandRole
+     * @param App\Band $band
      * @return bool
      **/
-    private function authorizeCheck($user, $bandRole)
+    private function authorizeCheck($user, $band)
     {
         $authUser = Auth::user();
         if ($user->id == $authUser->id) {
             return true;
         }
 
-        if ($authUser->isAdminForTeam($bandRole->team_id)) {
+        if ($authUser->isAdminForTeam($band->team_id)) {
             return true;
         }
 

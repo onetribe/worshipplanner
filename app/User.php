@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, ApiScopesTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -32,7 +32,24 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['name'];
 
+   /**
+     * Ordering for the API query
+     *
+     * @param \Illuminate\Database\Eloquent\Builder  $query
+     * @return void
+     **/
+    public function addDefaultOrderBy($query)
+    {
+        $query->orderBy('last_name', 'ASC')
+            ->orderBy('first_name', 'ASC');
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -84,7 +101,17 @@ class User extends Authenticatable
     | Model Methods
     |--------------------------------------------------------------------------
     */
-   
+      
+    /**
+     * Name accessor
+     *
+     * @return string
+     **/
+    public function getNameAttribute()
+    {
+        return $this->first_name .  ($this->last_name ? " " . $this->last_name : "");
+    }
+
    /**
     * @return void
     **/
