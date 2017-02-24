@@ -76,6 +76,15 @@ class Set extends Model
         return $this->belongsTo(Service::class);
     }
 
+    /**
+     * Get all setSubscriptions
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function setSubscriptions()
+    {
+        return $this->hasMany(SetSubscription::class);
+    }
     /*
     |--------------------------------------------------------------------------
     | Model Methods

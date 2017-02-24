@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Band;
+use App\BandRole;
 use App\Repositories\SetRepository;
 use App\Set;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -151,6 +154,25 @@ class SetsController extends Controller
         $songs = $set->setSongs->load(['song', 'song.authors']);
         
         return response()->json(['songs' => $songs]);
+    }
+
+    /**
+     * Edit the set members
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Set  $set
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function members(Request $request, Set $set)
+    {
+        $users = User::orderBy('last_name')->orderBy('first_name')->get(['id', 'first_name', 'last_name']);
+        $bands = Band::orderBy('title')->get();
+        $bandRoles = BandRole::orderBy('title')->get();
+
+        $set->load('setSubscriptions', 'setSubscriptions.user', 'setSubscriptions.bandRoles');
+
+        return view('sets.members', compact('set', 'users', 'bands', 'bandRoles'));
     }
 
     /**

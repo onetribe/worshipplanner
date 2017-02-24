@@ -4,6 +4,7 @@ return [
     "past" => "Past Sets",
     "future" => "Upcoming Sets",
     "add" => "Add Set",
+    "edit" => "Edit Set",
     "date" => "Date",
     "title" => "Title",
     "delete" => "Delete Set",
@@ -17,4 +18,6 @@ return [
     "show_comments" => "Show Comments",
     "show_sections" => "Show Sections",
     "show_columns" => "Show Columns",
+    "view" => "View Set",
+    "edit_members" => "Edit Members",
 ];

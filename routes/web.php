@@ -45,6 +45,21 @@ Route::get('/sets/{set}/songs', 'SetsController@songs')
 Route::post('/sets/update/{set}', 'SetsController@update')
     ->name('sets.update')
     ->middleware('can:update,set');
+
+Route::get('/sets/members/{set}', 'SetsController@members')
+    ->name('sets.members')
+    ->middleware('can:update,set');
+
+
+
+Route::post('/sets/{set}/user/{user}/role/{bandRole}', 'SetSubscriptionsController@storeWithRole')
+    ->name('sets.user.role.add')
+    ->middleware('can:update,set');
+
+Route::delete('/sets/{set}/role/{bandRole}', 'SetSubscriptionsController@removeByRole')
+    ->name('sets.role.remove')
+    ->middleware('can:update,set');
+
 /*
 |--------------------------------------------------------------------------
 | Songs

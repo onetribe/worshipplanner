@@ -5,8 +5,22 @@
       <a class="waves-effect waves-light tooltipped" 
          data-position="bottom" 
          data-delay="50" 
+         data-tooltip="{{ __('sets.view') }}" 
+         href="{{ route('sets.view', ['set' => $set]) }}"><i class="material-icons">skip_previous</i></a>
+  </li>
+  <li>
+      <a class="waves-effect waves-light tooltipped" 
+         data-position="bottom" 
+         data-delay="50" 
          data-tooltip="{{ __('sets.edit_details') }}" 
          href="#add-edit-set-modal"><i class="material-icons">edit</i></a>
+  </li>
+  <li>
+      <a class="waves-effect waves-light tooltipped" 
+         data-position="bottom" 
+         data-delay="50" 
+         data-tooltip="{{ __('sets.edit_members') }}" 
+         href="{{ route('sets.members', ['set' => $set]) }}"><i class="material-icons">assignment_ind</i></a>
   </li>
   <li>
       <a class="waves-effect waves-light tooltipped" 
