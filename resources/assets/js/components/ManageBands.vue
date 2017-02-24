@@ -20,7 +20,7 @@
 
     <div class="card-panel">
       <div class="card-content" >
-        <h2>{{ dictionary.create_new }}</h2>
+        <h4>{{ dictionary.create_new }}</h4>
         <div class="input-field col s12" >
           <input type="text" id="newService" v-model="newTitle"/>
           <label for="newService">{{ dictionary.title }}</label>
@@ -34,12 +34,14 @@
 <div class="col m8 s12">
   <div class="card-panel" >
     <div class="card-content" style="overflow:auto;" v-if="selectedBand">
-      <h4>{{ selectedBand.title }}</h4>
+      <h3>{{ selectedBand.title }}</h3>
+
       <table class="striped" v-if="selectedBand">
         <thead>
           <tr>
             <th>{{ dictionary.member }}</th>
             <th>{{ dictionary.normally_plays }}</th>
+            <th></th>
             <th></th>
           </tr>
         </thead>
@@ -50,11 +52,19 @@
             <td>
               <div class="chip" v-for="bandRole in bandSubscription.bandRoles.data">
                 {{ bandRole.title }}
-                <i class="close material-icons">close</i>
+                <i class="close material-icons" v-on:click="removeRole(bandSubscription.user.data.id, bandRole.id)">close</i>
               </div>
+
             </td>
-            <td width="200">
-                <a class="btn waves-effect waves-light btn-flat" href="#"><i class="material-icons left">add</i></a>
+            <td>
+              <select class="browser-default" 
+                      v-on:change="addRole(bandSubscription.user.data.id, $event)"
+              >
+                  <option>{{ dictionary.add_role }}</option>
+                  <option v-for="role in band_roles" :value="role.id">{{ role.title }}</option>
+              </select>
+            </td>
+            <td width="80">
 
                 <a class="waves-effect waves-light btn-flat" 
                    v-on:click="removeUser(bandSubscription.user.data.id)"
@@ -63,9 +73,10 @@
         </tr>
       </table>
 
+      <hr/>
       <div class="input-field col s12 m6">
         <select id="userSelect" class="browser-default" v-on:change="addUser">
-          <option value="" disabled selected>{{ dictionary.add_user }}</option>
+          <option value="" disabled selected>{{ dictionary.add_member }}</option>
           <option :value="user.id" v-for="user in users">{{ user.name }}</option>
         </select>
       </div>
@@ -100,6 +111,14 @@
               'required': true
             },
             'removeUserFromBandUrl': {
+              'type': String,
+              'required': true
+            },
+            'addUserRoleToBandUrl': {
+              'type': String,
+              'required': true
+            },
+            'removeUserRoleFromBandUrl': {
               'type': String,
               'required': true
             },
@@ -142,7 +161,6 @@
             this.fetch();
             this.fetchBandRoles();
             this.fetchUsers();
-            $('select').material_select();
         },
         methods: {
             fetch() {
@@ -197,6 +215,31 @@
               var removeUserFromBandUrl = this.removeUserFromBandUrl.replace("bandId", this.selectedBand.id).replace("userId", userId);
               
               this.$http.delete(removeUserFromBandUrl).then(function (Response) {
+                this.fetch();
+                Materialize.toast(Response.body.meta.message, 2000, 'success');
+              }.bind(this));
+            },
+            addRole(userId, e) {
+              //console.log(e.target.data.userid);
+              
+              var bandRoleId = e.target.value;
+              var addUserRoleToBandUrl = this.addUserRoleToBandUrl
+                  .replace("bandId", this.selectedBand.id)
+                  .replace("userId", userId)
+                  .replace("bandRoleId", bandRoleId);
+              
+              this.$http.post(addUserRoleToBandUrl).then(function (Response) {
+                this.fetch();
+                Materialize.toast(Response.body.meta.message, 2000, 'success');
+              }.bind(this));
+            },
+            removeRole(userId, bandRoleId) {
+              var removeUserRoleFromBandUrl = this.removeUserRoleFromBandUrl
+                  .replace("bandId", this.selectedBand.id)
+                  .replace("userId", userId)
+                  .replace("bandRoleId", bandRoleId);
+              
+              this.$http.delete(removeUserRoleFromBandUrl).then(function (Response) {
                 this.fetch();
                 Materialize.toast(Response.body.meta.message, 2000, 'success');
               }.bind(this));

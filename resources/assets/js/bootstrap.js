@@ -1,14 +1,5 @@
 
-//window._ = require('lodash');
-
-/**
- * We'll load jQuery and the Bootstrap jQuery plugin which provides support
- * for JavaScript based Bootstrap features such as modals and tabs. This
- * code may be modified to fit the specific needs of your application.
- */
-
-window.$ = window.jQuery = require('materialize-css/node_modules/jquery/dist/jquery.js'); 
-//require('bootstrap-sass');
+window.$ = window.jQuery = require('materialize-css/node_modules/jquery/dist/jquery.js');
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
@@ -29,7 +20,10 @@ Vue.http.interceptors.push((request, next) => {
     request.headers.set('X-CSRF-TOKEN', Laravel.csrfToken);
     $('.wp-loader').show();
 
-    next((response) => {
+    next((Response) => {
+    	if (Response.status == 401) {
+    		window.location.href = "/login";
+    	}
         $('.wp-loader').hide();
     });
 });

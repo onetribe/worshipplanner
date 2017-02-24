@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\Band;
+use App\BandRole;
 use App\BandSubscription;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -45,7 +46,7 @@ class UserBandsController extends AbstractApiController
     }
 
     /**
-     * Adds the given band role to the given user
+     * Adds the given user to the given band
      *
      * @param App\Band $band
      * @param App\User $user
@@ -56,6 +57,54 @@ class UserBandsController extends AbstractApiController
         $this->authorizeCheck($user, $band);
 
         BandSubscription::create(['user_id' => $user->id, 'band_id' => $band->id]);
+
+        $data = [
+            'meta' => [
+                'message' => trans('common.added_successfully'),
+            ],
+        ];
+        return response()->json($data);   
+    }
+
+    /**
+     * Remove the given band role from the given user for this band
+     *
+     * @param App\Band $band
+     * @param App\User $user
+     * @param App\BandRole $bandRole
+     * @return \Illuminate\Http\Response
+     */
+    public function removeBandRole(Request $request, Band $band, User $user, BandRole $bandRole)
+    {
+        $this->authorizeCheck($user, $band);
+
+        $bandSubscription = BandSubscription::where(['user_id' => $user->id, 'band_id' => $band->id])->first();
+
+        $bandSubscription->bandRoles()->detach($bandRole);
+
+        $data = [
+            'meta' => [
+                'message' => trans('common.removed_successfully'),
+            ],
+        ];
+        return response()->json($data);   
+    }
+
+    /**
+     * Adds the given band role to the given user for this band
+     *
+     * @param App\Band $band
+     * @param App\User $user
+     * @param App\BandRole $bandRole
+     * @return \Illuminate\Http\Response
+     */
+    public function addBandRole(Request $request, Band $band, User $user, BandRole $bandRole)
+    {
+        $this->authorizeCheck($user, $band);
+
+        $bandSubscription = BandSubscription::where(['user_id' => $user->id, 'band_id' => $band->id])->first();
+
+        $bandSubscription->bandRoles()->attach($bandRole);
 
         $data = [
             'meta' => [

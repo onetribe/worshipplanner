@@ -51,6 +51,8 @@
               :band-roles-index-url="bandRolesIndexUrl" 
               :add-user-to-band-url="addUserToBandUrl" 
               :remove-user-from-band-url="removeUserFromBandUrl" 
+              :remove-user-role-from-band-url="removeUserRoleFromBandUrl" 
+              :add-user-role-to-band-url="addUserRoleToBandUrl" 
               :users-index-url="usersIndexUrl" 
               :dictionary="bandsDictionary"/>
           </div>
@@ -144,6 +146,8 @@ var bandsRemoveUrl = "{{ route('bands.delete', ['bandRole' => '']) }}";
 var bandsAddUrl = "{{ route('bands.store') }}";
 var addUserToBandUrl = "{{ route('bands.user.add', ['band' => 'bandId', 'user' => 'userId']) }}";
 var removeUserFromBandUrl = "{{ route('bands.user.remove', ['band' => 'bandId', 'user' => 'userId']) }}";
+var addUserRoleToBandUrl = "{{ route('bands.user.role.add', ['band' => 'bandId', 'user' => 'userId', 'bandRole' => 'bandRoleId']) }}";
+var removeUserRoleFromBandUrl = "{{ route('bands.user.role.remove', ['band' => 'bandId', 'user' => 'userId', 'bandRole' => 'bandRoleId']) }}";
 var bandsDictionary = {
   'create_new': '{{ __('bands.create_new') }}',
   'delete': '{{ __('common.delete') }}',
@@ -153,7 +157,8 @@ var bandsDictionary = {
   'normally_plays': '{{ __('bands.normally_plays') }}',
   'member': '{{ __('bands.member') }}',
   'select_band_role': '{{ __('band_roles.select_band_role') }}',
-  'add_user': '{{ __('common.add_user') }}'
+  'add_member': '{{ __('bands.add_member') }}',
+  'add_role': '{{ __('band_roles.add_role') }}'
 };
 
 var userSettings = new Vue({
@@ -181,6 +186,8 @@ var userSettings = new Vue({
       bandsAddUrl: bandsAddUrl,
       addUserToBandUrl: addUserToBandUrl,
       removeUserFromBandUrl: removeUserFromBandUrl,
+      addUserRoleToBandUrl: addUserRoleToBandUrl,
+      removeUserRoleFromBandUrl: removeUserRoleFromBandUrl,
       usersIndexUrl: usersIndexUrl,
       bandsDictionary: bandsDictionary,
       userId: userId

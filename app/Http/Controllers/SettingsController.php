@@ -44,8 +44,6 @@ class SettingsController extends Controller
     {
         $user = Auth::user();
         $this->authorize('update', app(ActiveTeam::class)->get());
-        //$user->load(['teamSubscriptions', 'teamSubscriptions.team', 'bandRoles']);
-        
 
         return view('settings.team', compact('user'));
     }

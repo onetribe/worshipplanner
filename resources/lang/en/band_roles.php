@@ -6,4 +6,5 @@ return [
      "please_add_title" => "Please add a title",
      "title" => "Band role name",
      "select_band_role" => "Select roles in band",
+     "add_role" => "Add role",
 ];

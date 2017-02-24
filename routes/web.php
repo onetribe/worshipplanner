@@ -133,6 +133,12 @@ Route::delete('/bands/{band}/user/{user}', 'UserBandsController@remove')
 
 Route::post('/bands/{band}/user/{user}', 'UserBandsController@add')
     ->name('bands.user.add');
+
+Route::delete('/bands/{band}/user/{user}/role/{bandRole}', 'UserBandsController@removeBandRole')
+    ->name('bands.user.role.remove');
+
+Route::post('/bands/{band}/user/{user}/role/{bandRole}', 'UserBandsController@addBandRole')
+    ->name('bands.user.role.add');
 /*
 |--------------------------------------------------------------------------
 | Band Roles
@@ -173,7 +179,7 @@ Route::post('/user/{user}/involvement/{bandRole}', 'UserBandRolesController@add'
 Route::put('/users/{user}', 'UsersController@update')
     ->name('users.update')
     ->middleware('can:update,user');
-    
+
 Route::get('/users', 'UsersController@index')
     ->name('users.index');
 

@@ -7,4 +7,5 @@ return [
      "title" => "Band name",
      "normally_plays" => "Normally plays",
      "member" => "Member",
+     "add_member" => "Add Member",
 ];
