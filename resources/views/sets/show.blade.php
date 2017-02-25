@@ -37,7 +37,7 @@
             <ul class="collection col s12 sets-edit-collection">
               <li class="collection-item cursorPointer avatar" v-for="(setSong, index) in set.set_songs" v-on:click="selectSong(index)" >
                   <i class="circle" v-if="setSong.either_key">@{{ setSong.either_key }}</i>
-                  <span class="title" >@{{ setSong.song.title }}</span><br/>
+                  <span class="title">@{{ setSong.song.title }}</span><br/>
               </li>
             </ul>
           </div>
@@ -81,7 +81,7 @@
                   data-position="bottom" 
                   data-delay="50" 
                   data-tooltip="{{ __('songs.key') }}" >@{{ setSong.either_key }}</div>  
-              @{{ setSong.song.full_title }}
+              <a class="cursorPointer" v-bind:href="this.viewSongUrl.replace('songId', setSong.song.id)">@{{ setSong.song.full_title }}</a>
             </h5>
             <h6 class="grey-text " >@{{ setSong.song.author_list }}</h6>
             <div class="">
@@ -107,7 +107,7 @@
       @include('sets._description_card')
     </div>
     <div class="col s12 m6">
-      <ul class="collection">
+      <ul class="collection card">
       @foreach($set->setSubscriptions as $subscription)
         <li class="collection-item">
           <span class="title">{{ $subscription->user->name }}</span>
@@ -136,6 +136,7 @@
 @section('scripts')
 <script type="text/javascript">
     var initialSet = {!! $set->toJson() !!};
+    var viewSongUrl = "{{ route('songs.view', ['song' => 'songId']) }}";
     
     app = new Vue({ 
         el: '#view-set',
@@ -145,7 +146,8 @@
             showingChords: true,
             showingSections: true,
             showingComments: true,
-            showingColumns: false
+            showingColumns: false,
+            viewSongUrl: viewSongUrl
         },
         components: {
           wpsong

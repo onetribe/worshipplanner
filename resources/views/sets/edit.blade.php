@@ -113,12 +113,13 @@
             v-model="setSong.song_lyrics ? setSong.song_lyrics : setSong.song.lyrics"
             v-on:change="updateSongLyrics"
         ></textarea>
+        <a class='btn-floating left waves-effect waves-light tooltipped' data-position="top"  data-tooltip="{{ __('songs.edit_original') }}"  :href="this.editSongUrl.replace('songId', setSong.song.id)" data-activates='transposeDropdown'><i class="material-icons">queue_music</i></a>
       </div>
 
       <div class="grey-text right" v-show="usingOriginal">{{ __('songs.using_original') }}</div>
       <div class="grey-text right" v-show="usingEdited">{{ __('songs.using_edited') }}</div>
 
-      <a class='btn-floating left waves-effect waves-light tooltipped' data-position="top"  data-tooltip="{{ __('songs.edit_original') }}"  v-on:click='editOriginal()' data-activates='transposeDropdown'><i class="material-icons">queue_music</i></a>
+      
       <div class="clearfix"></div>
       
     </div>
@@ -140,7 +141,7 @@
     var fetchSetUrl = "{{ route('sets.view', ['set' => $set]) }}";
     var orderSongsUrl = "{{ route('set_songs.order', ['set' => $set]) }}";
     var addSongUrl = "{{ route('set_songs.store') }}";
-    var editSongUrl = "{{ route('songs.edit', ['song' => '']) }}";
+    var editSongUrl = "{{ route('songs.edit', ['song' => 'songId']) }}";
     var removeSongUrl = "{{ route('set_songs.delete', ['setSong' => new \App\SetSong]) }}";
     var updateSongUrl = "{{ route('set_songs.update', ['setSong' => new \App\SetSong]) }}";
     var transposeSongUrl = "{{ route('set_songs.transpose', ['setSong' => new \App\SetSong]) }}";
@@ -150,7 +151,8 @@
         el: '#manage-set',
         data: {
             set: initialSet,
-            selected: null
+            selected: null,
+            editSongUrl: editSongUrl
         },
         components: {
             draggable
@@ -255,9 +257,6 @@
                 ).done(function (data) {
                     app.fetchSongs();
                 });
-            },
-            editOriginal: function () {
-                window.location.href = editSongUrl + "/" + this.currentSong.song.id;
             }
         }
     });

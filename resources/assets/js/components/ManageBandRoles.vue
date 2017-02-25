@@ -73,6 +73,9 @@
                 }.bind(this));
             },
             remove: function (serviceId) {
+                if (! window.confirm(this.dictionary.confirm_delete)) {
+                    return;
+                }
                 this.$http.delete(this.removeUrl + "/" + serviceId).then(function (Response) {
                     this.fetch();
                     Materialize.toast(Response.body.meta.message, 2000, 'success');

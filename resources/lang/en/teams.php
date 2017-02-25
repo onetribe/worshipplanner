@@ -14,4 +14,7 @@ return [
     "couldnt_change_role" => "The user's role couldn't be changed!",
     "invite_member" => "Invite Someone",
     "invite" => "Invite",
+    "create_team" => "Create New Team",
+    "created_successfully" => "The new team was created. It can be activated via the navigation menu.",
+    "create_team_explanation" => "Create a new team if you want to have a completely different set of songs and sets. Although you can easily switch between teams, data is not shared across teams.",
 ];

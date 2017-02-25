@@ -91,4 +91,22 @@ class TeamPolicy
 
         return false;
     }
+
+    /**
+     * Determine whether the user can activate the given team as their active team.
+     *
+     * @param  \App\User  $user
+     * @param  \App\Team  $model
+     * @return bool
+     */
+    public function activate(User $user, Team $team)
+    {
+        if ($user->teamSubscriptions->count() == 0) {
+            return false;
+        }
+
+        return $user->teamSubscriptions
+            ->pluck('team_id')
+            ->contains($team->id);
+    }
 }

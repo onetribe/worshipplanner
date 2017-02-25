@@ -36,7 +36,7 @@
         </thead>
         <tbody>
             <tr v-for="song in filteredSongs">
-              <td>@{{ song.full_title }}</td>
+              <td><a class="cursorPointer" :href="songViewUrl.replace('songId', song.id)">@{{ song.full_title }}</a></td>
               <td>
                   <div class="chip" v-for="author in song.authors">@{{ author.name }}</div>
               </td>
@@ -44,7 +44,7 @@
               @if($canManage)
               <td>
                   <a 
-                     v-on:click="editSong(song.id)"
+                     :href="this.songEditUrl.replace('songId', song.id)"
                      class="tooltipped cursorPointer"
                      data-position="bottom" 
                      data-delay="50" 
@@ -66,14 +66,16 @@
 </div>
 
 @include('songs._add_modal')
-@include('songs._delete_modal')
+
 @endsection
 
 @section('scripts')
   <script type="text/javascript">
     var songs = {!! $songs->toJson() !!};
-    var songEditUrl = "{{ route('songs.edit', ['song' => '']) }}";
+    var songEditUrl = "{{ route('songs.edit', ['song' => 'songId']) }}";
+    var songViewUrl = "{{ route('songs.view', ['song' => 'songId']) }}";
     var songDeleteUrl = "{{ route('songs.delete', ['song' => '']) }}";
+    var delete_are_you_sure = "{{ __('songs.delete_are_you_sure') }}";
 
     app = new Vue({ 
         el: '#index-songs',
@@ -81,7 +83,8 @@
             songs: songs,
             //filteredSongs: songs,
             searchText: "",
-            songToDeleteId: null
+            songViewUrl: songViewUrl,
+            delete_are_you_sure: delete_are_you_sure
         },
         computed: {
           filteredSongs: function () {
@@ -97,17 +100,12 @@
           }
         },
         methods: {
-          editSong: function (id) {
-            window.location.href = songEditUrl + "/" + id;
-          },
           deleteSong: function (id) {
-            this.songToDeleteId = id;
-            $("#delete-song-modal").modal('open');
-           // window.location.href = songDeleteUrl + "/" + id;
-          },
-          confirmDelete: function () {
-console.log(this.songToDeleteId);
-            window.location.href = songDeleteUrl + "/" + this.songToDeleteId;
+            if (! window.confirm(this.delete_are_you_sure)) {
+              return;
+            }
+
+            window.location.href = songDeleteUrl + "/" + id;
           }
         }
     });

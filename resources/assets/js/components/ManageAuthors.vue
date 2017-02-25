@@ -104,6 +104,9 @@ var blankAuthor = {
                 }.bind(this));
             },
             remove: function (authorId) {
+                if (! window.confirm(this.dictionary.confirm_delete)) {
+                  return;
+                }
                 this.$http.delete(this.removeUrl + "/" + authorId).then(function (Response) {
                     this.fetch();
                     Materialize.toast(Response.body.meta.message, 2000, 'success');

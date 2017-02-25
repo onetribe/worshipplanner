@@ -11,13 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
+
 
 Auth::routes();
+Route::get('/logout', Auth\LoginController::class ."@logout")->name('logout');
 
-Route::get('/home', 'HomeController@index');
+Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/sets', 'SetsController@index')
     ->name('sets.index');
@@ -236,7 +236,13 @@ Route::put('/team_subscriptions/change_role/{user}', 'TeamSubscriptionsControlle
 Route::get('/teams/leave/{team}', 'TeamsController@leave')
     ->name('teams.leave')
     ->middleware('can:leave,team');
+    
+Route::get('/teams/activate/{team}', 'TeamsController@activate')
+    ->name('teams.activate')
+    ->middleware('can:activate,team');
 
+Route::post('/teams', 'TeamsController@store')
+    ->name('teams.store');
 
 /*
 |--------------------------------------------------------------------------

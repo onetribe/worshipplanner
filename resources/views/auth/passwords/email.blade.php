@@ -1,13 +1,14 @@
-@extends('layouts.app')
+@extends('layouts.public')
 
 <!-- Main Content -->
 @section('content')
 <div class="container">
+<div class="section">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Reset Password</div>
-                <div class="panel-body">
+        <div class="col m8 offset-m2">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-title">Reset Password</div>
                     @if (session('status'))
                         <div class="alert alert-success">
                             {{ session('status') }}
@@ -17,25 +18,28 @@
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/password/email') }}">
                         {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+                        <div class="row">
+                            <div class="input-field">
+                                <div class="col m12">
+                                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required/>
+                                    <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
+                                    @if ($errors->has('email'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('email') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Send Password Reset Link
-                                </button>
+                        <div class="row">
+                            <div class="input-field">
+                                <div class="col m6">
+                                    <button type="submit" class="btn btn-primary">
+                                        Send Password Reset Link
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -43,5 +47,6 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 @endsection

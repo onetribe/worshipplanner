@@ -5,8 +5,8 @@
         <a class="waves-effect waves-light tooltipped" 
            data-position="bottom" 
            data-delay="50" 
-           data-tooltip="{{ __('songs.back') }}" 
-           href="{{ route('songs.index') }}"><i class="material-icons">skip_previous</i></a>
+           data-tooltip="{{ __('songs.back_view') }}" 
+           href="{{ route('songs.view', ['song' => $song]) }}"><i class="material-icons">skip_previous</i></a>
 
         <a class="waves-effect waves-light tooltipped" 
            data-position="bottom" 

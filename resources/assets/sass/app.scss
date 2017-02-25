@@ -86,16 +86,6 @@ footer.page-footer {
  color: #598234 !important;
 }
 
-
-
-
-//.btn, .btn-large {
-//  background-color: #AEBD38;
-//}
-//.btn:hover, .btn-large:hover {
-//  background-color: #598234;
-//}
-
 h1, h2, h3, h4 {
   color: #598234;
 }
@@ -115,6 +105,14 @@ h4 {
 }
 h5 {
   font-size: 1.2em !important;
+}
+
+
+.home-page-card {
+  .card-title {
+    text-transform: uppercase;
+    font-weight: 600;
+  }
 }
 
 .collection a.collection-item {

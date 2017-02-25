@@ -1,9 +1,11 @@
 <?php
 
 return [
+    "app_name" => "Worship Planner",
     "title" => "Title",
     "author" => "Author",
     "delete" => "Delete",
+    "confirm_delete" => "Are you sure?",
     "edit" => "Edit",
     "manage" => "Manage",
     "input_error" => "Whoops! There were some problems with your input.",

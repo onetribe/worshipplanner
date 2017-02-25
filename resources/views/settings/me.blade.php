@@ -159,6 +159,10 @@ var teams = new Vue({
                this.user.team_subscriptions.splice(i, 1);
             }
           }
+
+          if (Response.body.meta.wasActiveTeam) {
+            window.location.href = '/logout';
+          }
         }, function (Response) {
 
         });

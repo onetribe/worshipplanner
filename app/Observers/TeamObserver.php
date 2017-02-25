@@ -43,6 +43,7 @@ class TeamObserver
     public function creating(Team $team)
     {
         $team->creator_id = $this->auth->user()->id;
+        $team->access_code = md5(uniqid($this->auth->user()->email, true));
     }
 
 }

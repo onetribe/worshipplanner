@@ -3,8 +3,8 @@
 @section('content')
 
 <div class="login-bg">
-  <div class="section">
-    <div class="row">
+  <div class="section ">
+    <div class="row ">
       <div class="col s10 m6 offset-m3">
         
           <div class="card z-depth-1">
@@ -48,14 +48,13 @@
                       </div>
                     </div>
 
-
                     <div class="row">
                       <div class="col s12">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn">
                           {{ __('auth.login') }}
                         </button>
 
-                        <a class="btn btn-link" href="{{ url('/password/reset') }}">
+                        <a class="btn btn-flat" href="{{ url('/password/reset') }}">
                           {{ __('auth.forgot_password') }}
                         </a>
                       </div>

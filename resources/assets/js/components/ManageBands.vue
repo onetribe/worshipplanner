@@ -179,6 +179,10 @@
                 }.bind(this));
             },
             remove(bandId) {
+                if (! window.confirm(this.dictionary.confirm_delete)) {
+                    return;
+                }
+
                 this.$http.delete(this.removeUrl + "/" + bandId).then(function (Response) {
                     this.fetch();
                     Materialize.toast(Response.body.meta.message, 2000, 'success');
@@ -212,6 +216,9 @@
               }.bind(this));
             },
             removeUser(userId) {
+              if (! window.confirm(this.dictionary.confirm_delete)) {
+                return;
+              }
               var removeUserFromBandUrl = this.removeUserFromBandUrl.replace("bandId", this.selectedBand.id).replace("userId", userId);
               
               this.$http.delete(removeUserFromBandUrl).then(function (Response) {

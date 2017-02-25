@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Team extends Model
 {
-    use HasCreatorTrait;
+    use HasCreatorTrait, HasValidationRulesTrait;
     
     /**
      * The attributes that are mass assignable.
@@ -25,6 +25,15 @@ class Team extends Model
      **/
     protected $hidden = [
         'access_code'
+    ];
+
+
+    /**
+     * @var array
+     **/
+    protected $defaultValidationRules = [
+        'title' => 'required|max:255',
+        'country_code' => 'required|max:2',
     ];
     /*
     |--------------------------------------------------------------------------
@@ -91,5 +100,4 @@ class Team extends Model
     {
         return $this->belongsToMany(User::class, 'team_subscriptions');
     }
-
 }

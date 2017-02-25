@@ -2,16 +2,34 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+<div class="section">
 
-                <div class="panel-body">
-                    You are logged in!
-                </div>
-            </div>
+  <div class="row">
+    <div class="col s12 m10 offset-m1">
+      <div class="row">
+        <div class="card home-page-card col s6">
+            <a class="card-content center-align" href="{{ route('sets.index') }}">
+                <p>
+                  <i class="large material-icons ">list</i>    
+                </p>
+                <p>
+                  <span class="card-title">{{ __('common.sets') }}</span>    
+                </p>
+            </a>
         </div>
+        <div class="card home-page-card col s6">
+            <a class="card-content center-align" href="{{ route('songs.index') }}">
+                <p>
+                  <i class="large material-icons ">queue_music</i>    
+                </p>
+                <p>
+                  <span class="card-title">{{ __('common.songs') }}</span>    
+                </p>
+            </a>
+        </div>
+      </div>
     </div>
+  </div>
+</div>
 </div>
 @endsection

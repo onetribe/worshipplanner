@@ -33,12 +33,15 @@
     <div class="col s12">
       
           <div id="team_members" class="col s12" v-if="selectedTab == 'team_members'">
+            <h1>{{ app(\App\Services\ActiveTeam::class)->get()->title }}</h1>
             <h4 class="card-title hide-on-med-and-up">{{ __('settings.team_members') }}</h4>
             <manageteammembers 
               :index-url="teamSubscriptionsIndexUrl" 
               :change-role-url="teamSubscriptionsChangeRoleUrl" 
               :remove-url="teamSubscriptionsRemoveUrl" 
+              :team-store-url="teamStoreUrl" 
               :user-id="userId" 
+              :country-codes="country_codes" 
               :dictionary="teamMembershipDictionary"/>
           
           </div>
@@ -93,6 +96,7 @@
 var teamSubscriptionsIndexUrl = "{{ route('team_subscriptions.index', ['include' => 'user']) }}";
 var teamSubscriptionsRemoveUrl = "{{ route('team_subscriptions.membership.remove', ['user' => '']) }}";
 var teamSubscriptionsChangeRoleUrl = "{{ route('team_subscriptions.change_role', ['user' => '']) }}";
+var teamStoreUrl = "{{ route('teams.store') }}";
 var teamMembershipDictionary = {
   'name': '{{ __('teams.name') }}',
   'role': '{{ __('teams.role') }}',
@@ -102,7 +106,19 @@ var teamMembershipDictionary = {
   'invite': '{{ __('teams.invite') }}',
   'invite_member': '{{ __('teams.invite_member') }}',
   'email': '{{ __('form.email') }}',
+  'confirm_delete': '{{ __('common.confirm_delete') }}',
+  'create_team': '{{ __('teams.create_team') }}',
+  'create_team_explanation': '{{ __('teams.create_team_explanation') }}',
+  'team_name': '{{ __('form.team_name') }}',
+  'country': '{{ __('form.country') }}'
 };
+<?php
+$countryCodes = [];
+foreach (config('country_codes') as $code => $name) {
+  $countryCodes[] = ['code' => $code, 'name' => $name];
+}
+?>
+var country_codes = {!! json_encode($countryCodes) !!};
 var userId = {{ Auth::user()->id }};
 
 
@@ -114,7 +130,8 @@ var servicesDictionary = {
   'delete': '{{ __('common.delete') }}',
   'title': '{{ __('services.title') }}',
   'save': '{{ __('form.save') }}',
-  'please_add_title': '{{ __('services.please_add_title') }}'  
+  'please_add_title': '{{ __('services.please_add_title') }}',
+  'confirm_delete': '{{ __('common.confirm_delete') }}'
 };
 var authorsIndexUrl = "{{ route('authors.index') }}";
 var authorsRemoveUrl = "{{ route('authors.delete', ['author' => '']) }}";
@@ -127,6 +144,7 @@ var authorsDictionary = {
   'last_name': '{{ __('form.last_name') }}',
   'save': '{{ __('form.save') }}',
   'please_add_first_name': '{{ __('validation.required', ['attribute' => trans('form.first_name')]) }}',
+  'confirm_delete': '{{ __('common.confirm_delete') }}'
 };
 
 var bandRolesIndexUrl = "{{ route('band_roles.index') }}";
@@ -137,7 +155,8 @@ var bandRolesDictionary = {
   'delete': '{{ __('common.delete') }}',
   'title': '{{ __('band_roles.title') }}',
   'save': '{{ __('form.save') }}',
-  'please_add_title': '{{ __('validation.required', ['attribute' => trans('form.title')]) }}'  
+  'please_add_title': '{{ __('validation.required', ['attribute' => trans('form.title')]) }}',
+  'confirm_delete': '{{ __('common.confirm_delete') }}'
 };
 
 var usersIndexUrl = "{{ route('users.index') }}";
@@ -158,7 +177,8 @@ var bandsDictionary = {
   'member': '{{ __('bands.member') }}',
   'select_band_role': '{{ __('band_roles.select_band_role') }}',
   'add_member': '{{ __('bands.add_member') }}',
-  'add_role': '{{ __('band_roles.add_role') }}'
+  'add_role': '{{ __('band_roles.add_role') }}',
+  'confirm_delete': '{{ __('common.confirm_delete') }}'
 };
 
 var userSettings = new Vue({
@@ -168,6 +188,7 @@ var userSettings = new Vue({
       teamSubscriptionsIndexUrl: teamSubscriptionsIndexUrl,
       teamSubscriptionsChangeRoleUrl: teamSubscriptionsChangeRoleUrl,
       teamSubscriptionsRemoveUrl: teamSubscriptionsRemoveUrl,
+      teamStoreUrl: teamStoreUrl,
       teamMembershipDictionary: teamMembershipDictionary,
       servicesIndexUrl: servicesIndexUrl,
       servicesRemoveUrl: servicesRemoveUrl,
@@ -190,6 +211,7 @@ var userSettings = new Vue({
       removeUserRoleFromBandUrl: removeUserRoleFromBandUrl,
       usersIndexUrl: usersIndexUrl,
       bandsDictionary: bandsDictionary,
+      country_codes: country_codes,
       userId: userId
     },
     components: {

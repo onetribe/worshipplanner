@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Auth;
 use App\Events\TeamCreated;
 use App\Http\Controllers\Controller;
 use App\Team;
@@ -80,7 +81,6 @@ class RegisterController extends Controller
         return Team::create([
             'title' => $data['team_title'],
             'country_code' => $data['country_code'],
-            'access_code' => md5(uniqid($user->email, true)),
         ]);
     }
 
@@ -94,7 +94,7 @@ class RegisterController extends Controller
     {
         $this->validator($request->all())->validate();
 
-        event(new Registered($user = $this->createUser($request->only(['first_name', 'last_name', 'email', 'password']))));
+        event(new Registered($user = $this->createUser($request->only(['first_name', 'last_name', 'email', 'password']))));    
         event(new TeamCreated($team = $this->createTeam($request->only(['team_title', 'country_code']), $user)));
 
         $this->guard()->login($user);

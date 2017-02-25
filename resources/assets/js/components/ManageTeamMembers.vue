@@ -43,6 +43,33 @@
   </div>
 </div>
 
+<div class="card-panel">
+  <div class="card-content" >
+    <h2>{{ dictionary.create_team }}</h2>
+    <p>
+        {{ dictionary.create_team_explanation }}
+    </p>
+    <div class="row">
+      <div class="input-field col s6">
+        <input id="team_title" type="text" class="form-control" name="team_title" v-model="newTeamTitle">
+        <label for="team_title">{{ dictionary.team_name }}</label>
+      </div>
+    </div>
+    <label >{{ dictionary.country }}</label>
+    <div class="row">
+
+      <div class="input-field col s3">
+        <select id="country_code" class="browser-default" v-model="selectedCountry" >
+            <option v-for="country_code in countryCodes" :value="country_code.code">{{ country_code.name }}</option>>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+        <button class="waves-effect waves-light btn" v-on:click="createTeam">{{ dictionary.create_team }}</button>
+    </div>
+  </div>
+</div>
+
 </div>
 </template>
 
@@ -63,8 +90,16 @@
               'type': String,
               'required': true
             },
+            'teamStoreUrl': {
+              'type': String,
+              'required': true
+            },
             'dictionary': {
                 'type': Object,
+                'required': true
+            },
+            'countryCodes': {
+                'type': Array,
                 'required': true
             },
             'userId': {
@@ -75,7 +110,9 @@
         data() {
             return {
                 'teamMembers': [],
-                'invitee': ''
+                'invitee': '',
+                'newTeamTitle': '',
+                'selectedCountry': ''
             }
         },
         computed: {
@@ -97,6 +134,10 @@
                 }.bind(this));
             },
             removeMember: function (userId) {
+                if (! window.confirm(this.dictionary.confirm_delete)) {
+                    return;
+                }
+                
                 this.$http.delete(this.removeUrl + "/" + userId).then(function (Response) {
                     this.fetchMembers();
                     Materialize.toast(Response.body.meta.message, 2000, 'success');
@@ -108,6 +149,13 @@
                 }).then(function (Response) {
                     this.fetchMembers();
                     Materialize.toast(Response.body.meta.message, 2000, 'success');
+                }.bind(this));
+            },
+            createTeam: function () {
+                var data = {'title': this.newTeamTitle, 'country_code': this.selectedCountry};
+                this.$http.post(this.teamStoreUrl, data).then(function (Response) {
+                    
+                    Materialize.toast(Response.body.meta.message, 3500, 'success');
                 }.bind(this));
             }
         }
