@@ -14,6 +14,16 @@
 @section('content')
 <div class="section" id="manage-set-members" v-cloak>
 
+<div class="row">
+<div class="input-field col s3">
+  <select id="bandChangeSelect" class="browser-default" v-on:change="bandChanged" v-model="selectedBandId">
+        <option value="">{{ __('bands.assign_by_band') }}</option>
+        <option v-for="band in bands" :value="band.id">@{{ band.title }}</option>
+  </select>
+  <label for="bandChangeSelect" style="left:2em;"> {{ __('bands.assign_by_band') }}</label>
+</div>
+</div>
+
 
 <div class="row">
 <div class="col s6 m4 l3 card" v-for="role in band_roles">
@@ -65,9 +75,18 @@ app = new Vue({
       setsUserAddRoleUrl: setsUserAddRoleUrl,
       setsUserRemoveUrl: setsUserRemoveUrl,
       subscriptions: subscriptions,
+      selectedBandId: null,
   },
   computed: {
-      
+      selectedBand: function () {
+        for (var i = 0; i < this.bands.length; i++) {
+          if (this.bands[i].id == this.selectedBandId) {
+            return this.bands[i];
+          }
+        }
+
+        return null;
+      }
   },
   methods: {
       userChanged: function (roleId, e) {
@@ -77,6 +96,19 @@ app = new Vue({
         } else {
           this.removeByRole(roleId);
         }
+      },
+      bandChanged: function () {
+        if (!this.selectedBand) {
+          return;
+        }
+
+        this.selectedBand.band_subscriptions.forEach(function (subscription) {
+          subscription.band_roles.forEach(function (role) {
+            this.subscriptions[role.id] = subscription.user_id;
+            this.addUser(role.id, subscription.user_id);
+          }.bind(this));
+        }.bind(this));
+      
       },
       removeByRole: function (roleId) {
         var setsUserRemoveUrl = this.setsUserRemoveUrl.replace('bandRoleId', roleId).replace('setId', this.set.id);

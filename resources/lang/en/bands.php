@@ -8,4 +8,5 @@ return [
      "normally_plays" => "Normally plays",
      "member" => "Member",
      "add_member" => "Add Member",
+     "assign_by_band" => "Assign roles by band",
 ];

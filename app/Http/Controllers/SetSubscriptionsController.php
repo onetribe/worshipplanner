@@ -39,7 +39,9 @@ class SetSubscriptionsController extends AbstractApiController
             ]);
         }
 
-        $subscription->bandRoles()->attach($bandRole);
+        if (! $subscription->bandRoles->find($bandRole)) {
+            $subscription->bandRoles()->attach($bandRole);
+        }
         
         $data = [
             'meta' => [

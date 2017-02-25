@@ -19,5 +19,6 @@ return [
     "show_sections" => "Show Sections",
     "show_columns" => "Show Columns",
     "view" => "View Set",
+    "view_details" => "View Set Details",
     "edit_members" => "Edit Members",
 ];

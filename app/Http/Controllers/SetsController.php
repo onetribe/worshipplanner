@@ -74,6 +74,8 @@ class SetsController extends Controller
     {
         $viewData = $this->prepareViewData($set);
 
+        $set->load(['setSubscriptions', 'setSubscriptions.user', 'setSubscriptions.bandRoles']);
+
         return $request->wantsJson() ? response()->json($viewData) : view('sets.show', $viewData);
     }
 
@@ -170,7 +172,16 @@ class SetsController extends Controller
         $bands = Band::orderBy('title')->get();
         $bandRoles = BandRole::orderBy('title')->get();
 
-        $set->load('setSubscriptions', 'setSubscriptions.user', 'setSubscriptions.bandRoles');
+        $set->load([
+            'setSubscriptions',
+            'setSubscriptions.user', 
+            'setSubscriptions.bandRoles',
+        ]);
+
+        $bands->load([
+            'bandSubscriptions',
+            'bandSubscriptions.bandRoles',
+        ]);
 
         return view('sets.members', compact('set', 'users', 'bands', 'bandRoles'));
     }
