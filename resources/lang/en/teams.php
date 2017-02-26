@@ -17,4 +17,9 @@ return [
     "create_team" => "Create New Team",
     "created_successfully" => "The new team was created. It can be activated via the navigation menu.",
     "create_team_explanation" => "Create a new team if you want to have a completely different set of songs and sets. Although you can easily switch between teams, data is not shared across teams.",
+    "success_invited" => "An email was sent to :email with an invite.",
+    "youve_been_invited" => "You've been invited to join :team_name",
+    "accept_invite" => "Accept Invitation",
+    "added_to_team" => "You've been added to the team. You can now log in.",
+    "link_expired" => "That invitation link has expired. Please ask the person who invited you to send another invitation link.",
 ];

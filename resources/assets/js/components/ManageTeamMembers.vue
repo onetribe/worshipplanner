@@ -39,7 +39,7 @@
       <input type="email" id="invitee" v-model="invitee"/>
       <label for="invitee">{{ dictionary.email }}</label>
     </div>
-    <button class="waves-effect waves-light btn">{{ dictionary.invite }}</button>
+    <button class="waves-effect waves-light btn" v-on:click="invite">{{ dictionary.invite }}</button>
   </div>
 </div>
 
@@ -91,6 +91,10 @@
               'required': true
             },
             'teamStoreUrl': {
+              'type': String,
+              'required': true
+            },
+            'inviteUrl': {
               'type': String,
               'required': true
             },
@@ -156,6 +160,15 @@
                 this.$http.post(this.teamStoreUrl, data).then(function (Response) {
                     
                     Materialize.toast(Response.body.meta.message, 3500, 'success');
+                }.bind(this));
+            },
+            invite: function () {
+                var data = {
+                    'email': this.invitee
+                };
+                this.$http.post(this.inviteUrl, data).then(function (Response) {
+                    
+                    Materialize.toast(Response.body.meta.message, 2500, 'success');
                 }.bind(this));
             }
         }

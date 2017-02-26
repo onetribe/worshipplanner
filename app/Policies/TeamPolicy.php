@@ -109,4 +109,16 @@ class TeamPolicy
             ->pluck('team_id')
             ->contains($team->id);
     }
+
+    /**
+     * Determine whether the user can invite other members
+     *
+     * @param  \App\User  $user
+     * @param  \App\Team  $model
+     * @return bool
+     */
+    public function invite(User $user, Team $team)
+    {
+        return $this->update($user, $team);
+    }
 }

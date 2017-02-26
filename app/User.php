@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable, ApiScopesTrait;
+    use Notifiable, ApiScopesTrait, HasValidationRulesTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -38,6 +38,17 @@ class User extends Authenticatable
      * @var array
      */
     protected $appends = ['name'];
+
+
+    /**
+     * @var array
+     **/
+    protected $defaultValidationRules = [
+        'first_name' => 'required|max:255',
+        'last_name' => 'required|max:255',
+        'email' => 'required|email|max:255|unique:users',
+        'password' => 'required|min:6|confirmed',
+    ];
 
    /**
      * Ordering for the API query

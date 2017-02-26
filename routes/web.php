@@ -246,6 +246,20 @@ Route::post('/teams', 'TeamsController@store')
 
 /*
 |--------------------------------------------------------------------------
+| Invite links
+|--------------------------------------------------------------------------
+*/
+Route::post('/invite/{team}', 'InviteLinksController@invite')
+    ->name('invite')
+    ->middleware('can:invite,team');
+
+Route::get('/invite/{team}/{email}/{token}', 'InviteLinksController@accept')
+    ->name('invite.accept');
+Route::post('/invite/{team}/{email}/{token}', 'InviteLinksController@acceptConfirm')
+    ->name('invite.accept.confirm');
+
+/*
+|--------------------------------------------------------------------------
 | Services
 |--------------------------------------------------------------------------
 */

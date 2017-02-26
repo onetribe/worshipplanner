@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use App\InviteLink;
+use App\Mail\SendTeamInvite;
 use App\Services\ActiveTeam;
 use App\Team;
 use App\TeamSubscription;
@@ -102,5 +104,4 @@ class TeamsController extends AbstractApiController
 
         return $response;
     }
-
 }

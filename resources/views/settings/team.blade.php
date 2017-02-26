@@ -40,6 +40,7 @@
               :change-role-url="teamSubscriptionsChangeRoleUrl" 
               :remove-url="teamSubscriptionsRemoveUrl" 
               :team-store-url="teamStoreUrl" 
+              :invite-url="inviteUrl" 
               :user-id="userId" 
               :country-codes="country_codes" 
               :dictionary="teamMembershipDictionary"/>
@@ -97,6 +98,7 @@ var teamSubscriptionsIndexUrl = "{{ route('team_subscriptions.index', ['include'
 var teamSubscriptionsRemoveUrl = "{{ route('team_subscriptions.membership.remove', ['user' => '']) }}";
 var teamSubscriptionsChangeRoleUrl = "{{ route('team_subscriptions.change_role', ['user' => '']) }}";
 var teamStoreUrl = "{{ route('teams.store') }}";
+var inviteUrl = "{{ route('invite', ['team' => app(\App\Services\ActiveTeam::class)->get()]) }}";
 var teamMembershipDictionary = {
   'name': '{{ __('teams.name') }}',
   'role': '{{ __('teams.role') }}',
@@ -212,6 +214,7 @@ var userSettings = new Vue({
       usersIndexUrl: usersIndexUrl,
       bandsDictionary: bandsDictionary,
       country_codes: country_codes,
+      inviteUrl: inviteUrl,
       userId: userId
     },
     components: {

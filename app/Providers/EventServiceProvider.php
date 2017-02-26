@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Observers\AuthorObserver;
 use App\Observers\BandObserver;
 use App\Observers\BandRoleObserver;
+use App\Observers\InviteLinkObserver;
 use App\Observers\ServiceObserver;
 use App\Observers\SetObserver;
 use App\Observers\SetSongObserver;
@@ -14,6 +15,7 @@ use App\Observers\UserObserver;
 use App\Author;
 use App\Band;
 use App\BandRole;
+use App\InviteLink;
 use App\Service;
 use App\Set;
 use App\SetSong;
@@ -54,5 +56,6 @@ class EventServiceProvider extends ServiceProvider
         Band::observe(BandObserver::class);
         BandRole::observe(BandRoleObserver::class);
         Author::observe(AuthorObserver::class);
+        InviteLink::observe(InviteLinkObserver::class);
     }
 }
