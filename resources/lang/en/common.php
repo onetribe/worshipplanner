@@ -23,4 +23,7 @@ return [
     "songs" => "Songs",
     "team_settings" => "Team Settings",
     "add_user" => "Add User",
+    "select_all" => "Select All",
+    "select_none" => "Select None",
+    "export_opensong" => "Export selected to Open Song",
 ];

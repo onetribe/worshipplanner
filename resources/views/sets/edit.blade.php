@@ -179,19 +179,12 @@
         methods: {
             fetchSongs: function () {
                 var app = this;
-                $.get(fetchSetUrl, {}, null, 'json').done(function(data) {
-                    app.set = data.set;
-                });
+                this.$http.get(fetchSetUrl).then(function (Response) {
+                  this.set = Response.body.set;
+                }.bind(this));
             },
             reorderSongs: function () {
-                $.post(
-                    orderSongsUrl, 
-                    {'_token': csrfToken, 'songs': this.set.set_songs},
-                    null,
-                    'json'
-                ).done(function () {
-
-                });
+              this.$http.post(orderSongsUrl, {'songs': this.set.set_songs});
             },
             onEnd: function (evt) {
                 this.reorderSongs();
@@ -201,29 +194,20 @@
                 $("#song-lyrics").trigger('autoresize');
             },
             addSong: function (e) {
-                var app = this;
                 var song_id = e.target.value;
                 var data = {
                   '_token': csrfToken,
                   'set_id': initialSet.id,
                   'song_id': song_id
                 };
-                $.post(
-                    addSongUrl, 
-                    data,
-                    null,
-                    'json'
-                ).done(function () {
-                    app.fetchSongs();
-                });
+                this.$http.post(addSongUrl, data).then(function (Response) {
+                  this.fetchSongs();
+                }.bind(this));
             },
             removeSong: function (setSong) {
-                var app = this;
-                $.get(
-                    removeSongUrl + "/" + setSong.id
-                ).done(function () {
-                    app.fetchSongs();
-                });
+                this.$http.delete(removeSongUrl + "/" + setSong.id).then(function (Response) {
+                  this.fetchSongs();
+                }.bind(this));
             },
             updateSong: function (setSong, field, value) {
                 var app = this;
@@ -231,32 +215,20 @@
                   '_token': csrfToken
                 };
                 data[field] = value;
-                $.post(
-                    updateSongUrl + "/" + setSong.id,
-                    data,
-                    null,
-                    'json'
-                ).done(function () {
-                    app.fetchSongs();
-                });
+                this.$http.post(updateSongUrl + "/" + setSong.id, data).then(function (Response) {
+                  this.fetchSongs();
+                }.bind(this));
             },
             updateSongLyrics: function (e) {
                 this.updateSong(this.currentSong, 'song_lyrics', e.target.value);
             },
             transposeSongLyrics: function (key) {
-                var app = this;
                 var data = {
-                  '_token': csrfToken,
                   'key': key
                 };
-                $.post(
-                    transposeSongUrl + "/" + this.currentSong.id,
-                    data,
-                    null,
-                    'json'
-                ).done(function (data) {
-                    app.fetchSongs();
-                });
+                this.$http.post(transposeSongUrl + "/" + this.currentSong.id, data).then(function (Response) {
+                  this.fetchSongs();
+                }.bind(this));
             }
         }
     });

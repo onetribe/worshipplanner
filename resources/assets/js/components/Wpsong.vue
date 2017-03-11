@@ -55,6 +55,7 @@
                         if (this.showingChords) {
                             line = line.substring(1, line.length);
                             line = line.replace(/ /g, '\u00a0');
+                            line = line.replace(/\t/g, '\u00a0\u00a0\u00a0\u00a0');
                             //indent line
                             line = this.showingColumns ? line : "\u00a0\u00a0\u00a0\u00a0" + line;
                         } else {

@@ -9,7 +9,7 @@
     </p>
   </div>
   <div class="modal-footer">
-    <input type="submit" class=" modal-action modal-close waves-effect waves-green btn-flat" value="{{ __('form.save') }}"/>
+    <input type="submit" class=" modal-action waves-effect waves-green btn-flat" value="{{ __('form.save') }}"/>
   </div>
   </form>
 </div>

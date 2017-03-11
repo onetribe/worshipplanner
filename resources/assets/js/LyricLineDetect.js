@@ -37,10 +37,11 @@ class LyricLineDetect {
   }
 
   isSectionLine(line) {
-    if(line.indexOf("[") != -1 && line.indexOf("]") != -1 && line.trim().substring(0,1) == "[" )
-        return true
+    if(line.indexOf("[") != -1 && line.indexOf("]") != -1 && line.trim().substring(0,1) == "[" ) {
+        return true;
+    }
 
-    var sectionWords = ["chorus", "verse", "pre-chorus","bridge","v1","v2","v3","v4","v5","v6"];
+    var sectionWords = ["chorus", "verse", "pre-chorus","bridge","v1","v2","v3","v4","v5","v6", "intro"];
     var found = false;
     sectionWords.forEach(function (word) {
         if (line.toUpperCase().indexOf(word.toUpperCase()) != -1) {
@@ -49,7 +50,10 @@ class LyricLineDetect {
         }
     });
 
-    if (found) return true;
+    //also ignore as section if the line length is fairly long
+    //verse and bridge could be part of other words like "universe"
+    //in that case the line length is likely longer than 15 characters
+    if (found && line.length <= 15) return true;
 
     return false;
   }

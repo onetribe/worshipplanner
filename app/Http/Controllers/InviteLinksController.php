@@ -27,13 +27,13 @@ class InviteLinksController extends AbstractApiController
         'token',
     ];
 
-	/**
-	 * @return void
-	 **/
-	public function __construct()
-	{
-		$this->middleware('auth')->only('invite');
-	}
+    /**
+     * @return void
+     **/
+    public function __construct()
+    {
+        $this->middleware('auth')->only('invite');
+    }
 
     /**
      * Invite someone to the given team

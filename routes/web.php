@@ -102,7 +102,7 @@ Route::post('/set_songs/order/{set}', 'SetSongsController@order')
     ->name('set_songs.order')
     ->middleware('can:update,set');
 
-Route::get('/set_songs/delete/{setSong}', 'SetSongsController@destroy')
+Route::delete('/set_songs/{setSong}', 'SetSongsController@destroy')
     ->name('set_songs.delete')
     ->middleware('can:delete,setSong');
 
@@ -308,4 +308,20 @@ Route::put('/authors/{author}', 'AuthorsController@update')
 Route::delete('/authors/{author}', 'AuthorsController@destroy')
     ->name('authors.delete')
     ->middleware('can:delete,author');
-    
+
+
+/*
+|--------------------------------------------------------------------------
+| Export
+|--------------------------------------------------------------------------
+*/
+Route::get('/export/open_song/set/{set}', 'ExportsController@openSongSet')
+    ->name('export.opensong.set');
+
+Route::post('/export/open_song/songs', 'ExportsController@openSongSongs')
+    ->name('export.opensong.songs');
+
+
+
+
+ 

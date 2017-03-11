@@ -107,6 +107,7 @@
       @include('sets._description_card')
     </div>
     <div class="col s12 m6">
+      @if($set->setSubscriptions->count() > 0)
       <ul class="collection card">
       @foreach($set->setSubscriptions as $subscription)
         <li class="collection-item">
@@ -121,6 +122,7 @@
         </li>
       @endforeach
       </ul>
+      @endif
     </div>
   </div>
 </div>
