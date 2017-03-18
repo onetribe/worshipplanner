@@ -78,6 +78,7 @@ $primary-color-dark: darken($primary-color, 15%) !default;
 
 $secondary-color: rgb(196, 59, 150); /*color("light-green", "darken-3") !default;*/
 $secondary-color-light: lighten($secondary-color, 20%); /*color("light-green", "darken-3") !default;*/
+$secondary-color-lighter: lighten($secondary-color, 35%); /*color("light-green", "darken-3") !default;*/
 $success-color: $primary-color-light !default;
 $error-color: color("red", "base") !default;
 $link-color: $primary-color-light !default;

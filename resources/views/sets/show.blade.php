@@ -14,6 +14,18 @@
          data-tooltip="{{ __('common.edit') }}" 
          href="{{ route('sets.edit', ['set' => $set]) }}"><i class="material-icons">edit</i></a>
   </li>
+  <li>
+      <a class="dropdown-button waves-effect waves-light tooltipped" 
+         data-activates='set_export_dropdown'
+         data-position="bottom" 
+         data-delay="50" 
+         data-tooltip="{{ __('sets.export') }}" 
+         ><i class="material-icons">open_in_new</i></a>
+      <ul id='set_export_dropdown' class='dropdown-content' style="min-width: 200px;">
+        <li><a href="{{ route('export.opensong.set', ['set' => $set]) }}">{{ __('common.export_opensong') }}</a></li>
+      </ul>
+  </li>
+                
 @endif
 
 @endsection

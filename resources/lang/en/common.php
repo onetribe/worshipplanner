@@ -28,5 +28,5 @@ return [
     "add_user" => "Add User",
     "select_all" => "Select All",
     "select_none" => "Select None",
-    "export_opensong" => "Export selected to Open Song",
+    "export_opensong" => "Export to Open Song",
 ];

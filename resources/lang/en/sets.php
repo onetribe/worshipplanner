@@ -21,4 +21,5 @@ return [
     "view" => "View Set",
     "view_details" => "View Set Details",
     "edit_members" => "Edit Members",
+    "export" => "Export Set",
 ];
