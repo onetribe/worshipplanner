@@ -40,6 +40,13 @@ h5 {
   font-size: 1.2em !important;
 }
 
+a .material-icons {
+  color: $secondary-color;
+}
+
+.btn-floating .material-icons {
+  color: white;
+}
 
 /**************
  NAV
