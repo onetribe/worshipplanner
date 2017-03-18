@@ -1,93 +1,26 @@
 
 // Fonts
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
-@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,400i,900);
+//@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,400i,900);
 
-// Variables
-//@import "variables";
 @import "materialize.scss";
 
-// Bootstrap
-//@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
- body {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-  }
-
-  main {
-    flex: 1 0 auto;
-  }
-
-nav ul a,
-nav .brand-logo {
-  color: #444;
+/**************
+ General Layout
+ *************/
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
-p {
-  line-height: 2rem;
-}
-
-.button-collapse {
-  color: #26a69a;
-}
-
-.icon-block {
-  padding: 0 15px;
-}
-.icon-block .material-icons {
-  font-size: inherit;
-}
-
-footer.page-footer {
-  margin: 0;
-}
-
-/* override hiding of menu button */
-@media only screen and (min-width: 993px) {
-  nav a.button-collapse {
-    display: inline-block;
-  }
-}
-
-/*
-#F4F4F4  dark grey
-#2C2D34  almost black
-#C2606F  red wine
-#E9EAE9  lightgrey 
-#5D9EA1  teal
-#CDB5A3  brown 
-#E6AD73  mustard
-
-*/
-.ws-colour-1 {
- background-color: #505160 !important;
-}
-.ws-colour-1-text {
- color: #505160 !important;
-}
-.ws-colour-2 {
- background-color: #68829E !important;
-}
-.ws-colour-2-text {
- color: #68829E !important;
-}
-.ws-colour-3 {
- background-color: #AEBD38 !important;
-}
-.ws-colour-3-text {
- color: #AEBD38 !important;
-}
-.ws-colour-4 {
- background-color: #598234 !important;
-}
-.ws-colour-4-text {
- color: #598234 !important;
+main {
+  flex: 1 0 auto;
 }
 
 h1, h2, h3, h4 {
-  color: #598234;
+  color: $primary-color-light;
 }
 h1 {
   font-size: 2em !important;
@@ -108,36 +41,112 @@ h5 {
 }
 
 
-.home-page-card {
-  .card-title {
-    text-transform: uppercase;
-    font-weight: 600;
-  }
-}
-
-.collection a.collection-item {
-  color: #AEBD38;
+/**************
+ NAV
+ *************/
+nav ul a,
+nav .brand-logo {
+  color: #444;
 }
 
 .nav-wrapper ul i {
-  color: #D0E1F9;
+  color: $primary-color-light;
 }
 
-.orderHandle {
-  cursor: move;
+p {
+  line-height: 2rem;
+}
+
+.button-collapse {
+  color: #26a69a;
+}
+
+.side-nav li.logo-container {
+  background: url('/images/logo_bg.jpg');
+  line-height: 0;
+
+  img {
+    max-width: 50%;
+    margin:25px 25%;
+  }
+
+}
+
+/* override hiding of menu button */
+@media only screen and (min-width: 993px) {
+  nav a.button-collapse {
+    display: inline-block;
+  }
+}
+
+
+.collection a.collection-item {
+  color: $primary-color-dark;
 }
 
 .cursorPointer {
   cursor: pointer;
 }
 
+[v-cloak] {
+  display: none;
+}
+
+
+
+
+/**************
+ MUSO loader
+ *************/
+.muso-loader {
+  display: none;
+  height: 3px;
+  width: 100%;
+  position: fixed;
+  top:0;
+  overflow: hidden;
+  background-color: #ddd;
+}
+.muso-loader:before{
+  display: block;
+  position: absolute;
+  content: "";
+  left: -200px;
+  width: 200px;
+  height: 3px;
+  background-color: $secondary-color;
+  animation: loading 2s linear infinite;
+}
+
+@keyframes loading {
+    from {left: -200px; width: 30%;}
+    50% {width: 30%;}
+    70% {width: 70%;}
+    80% { left: 50%;}
+    95% {left: 120%;}
+    to {left: 100%;}
+}
+
+
+
+/**************
+ Alert message
+ *************/
+.success {
+  background-color: $success-color;
+}
+.failure {
+  background-color: $error-color;
+}
+
+
+
+/**************
+ Songs and sets
+ *************/
 .song-lyrics-textarea {
   min-height: 400px !important;
   font-family: monospace;
-}
-
-[v-cloak] {
-  display: none;
 }
 
 .sets-edit-collection {
@@ -160,16 +169,12 @@ h5 {
   }
 }
 
-
-.lyricLine {
-  
-}
 .commentLine {
   font-style: italic;
   color: color('grey', 'lighten-1');
 }
 .chordLine {
-  color: color('red', 'darken-2');
+  color: $secondary-color;
 }
 .sectionLine {
   color: color('grey', 'darken-2');
@@ -182,38 +187,36 @@ h5 {
   column-count: 2;
 }
 
-.wp-loader {
-  display: none;
-  height: 3px;
-  width: 100%;
-  position: fixed;
-  top:0;
-  overflow: hidden;
-  background-color: #ddd;
-}
-.wp-loader:before{
-  display: block;
-  position: absolute;
-  content: "";
-  left: -200px;
-  width: 200px;
-  height: 3px;
-  background-color: $secondary-color;
-  animation: loading 2s linear infinite;
+.select-all-checkbox {
+  color: $secondary-color;
 }
 
-@keyframes loading {
-    from {left: -200px; width: 30%;}
-    50% {width: 30%;}
-    70% {width: 70%;}
-    80% { left: 50%;}
-    95% {left: 120%;}
-    to {left: 100%;}
+/**************
+ Home Page
+ *************/
+.home-page-card {
+  .card-title {
+    text-transform: uppercase;
+    font-weight: 600;
+  }
 }
 
-.success {
-  background-color: $success-color;
+
+
+/**************
+ Public
+ *************/
+.top-right.links {
+    position: absolute;
+    right: 10px;
+    top: 18px;
 }
-.failure {
-  background-color: $error-color;
+
+.muso-bg {
+    background: url('/images/login_bg.jpg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-color: #000;
+    height: 100vh;
 }
+

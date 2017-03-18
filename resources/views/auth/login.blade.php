@@ -1,12 +1,11 @@
-@extends('layouts.login')
+@extends('layouts.public')
 
 @section('content')
 
-<div class="login-bg">
+<div class="login-bg muso-bg">
   <div class="section ">
     <div class="row ">
-      <div class="col s10 m6 offset-m3">
-        
+      <div class="col s12 m6 offset-m3">
           <div class="card z-depth-1">
             <div class="card-content">
               <span class="card-title">{{ __('auth.login') }}</span>

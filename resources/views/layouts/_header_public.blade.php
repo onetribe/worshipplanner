@@ -12,7 +12,8 @@
 
     <!-- Styles -->
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
-
+    <link href="{{ mix('/css/public.css') }}" rel="stylesheet">
+    
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([
@@ -20,4 +21,4 @@
         ]); ?>
     </script>
 </head>
-<body class="grey lighten-5">
+<body class="muso-bg">

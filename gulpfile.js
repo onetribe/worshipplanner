@@ -26,4 +26,6 @@ elixir((mix) => {
        .copy('node_modules/materialize-css/fonts/roboto/Roboto-Thin.woff', 'public/fonts/roboto/Roboto-Thin.woff')
        .copy('node_modules/materialize-css/fonts/roboto/Roboto-Thin.woff2', 'public/fonts/roboto/Roboto-Thin.woff2')
        .webpack('app.js');
+
+      mix.sass('public.scss');
 });

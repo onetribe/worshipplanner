@@ -1,7 +1,7 @@
 @include("_header")
 
 <ul id="slide-out" class="side-nav">
-  <li><a href="index.php"><h5 style="font-weight: 600; text-transform: uppercase;">{{ __('common.app_name') }}</h5></a></li>
+  <li class="logo-container" style=""><img src="/images/muso_logo_white.png"/></li>
   <li><a class="waves-effect" href="{{ route('sets.index') }}"><i class="material-icons">list</i>{{ __('common.sets') }}</a></li>
   <li><a class="waves-effect" href="{{ route('songs.index') }}"><i class="material-icons">queue_music</i>{{ __('common.songs') }}</a></li>
   <li><div class="divider"></div></li>
@@ -41,7 +41,7 @@
   </li>
 </ul>
 
-<div class="wp-loader">
+<div class="muso-loader">
 </div>
 <nav>
   <div class="nav-wrapper">

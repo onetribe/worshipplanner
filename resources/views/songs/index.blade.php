@@ -25,7 +25,7 @@
           <tr>
               <th>
                 <a class='dropdown-button' href='#' data-activates='songs_select_dropdown'>
-                  <i class="material-icons">offline_pin</i>
+                  <i class="material-icons select-all-checkbox">offline_pin</i>
                 </a>
                 <ul id='songs_select_dropdown' class='dropdown-content' style="min-width: 200px;">
                   <li><a href="#!" v-on:click="selectAll()">{{ __('common.select_all') }}</a></li>

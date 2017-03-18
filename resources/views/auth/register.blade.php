@@ -1,7 +1,7 @@
 @extends('layouts.public')
 
 @section('content')
-<div class="container">
+<div class=" muso-bg">
   <div class="row">
     <div class="col s10 m8 offset-m2">
       <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">

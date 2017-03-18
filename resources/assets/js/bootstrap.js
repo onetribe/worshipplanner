@@ -1,5 +1,7 @@
 
-window.$ = window.jQuery = require('materialize-css/node_modules/jquery/dist/jquery.js');
+//window.$ = window.jQuery = require("jquery");
+//window.$ = window.jQuery = require('materialize-css/node_modules/jquery/dist/jquery.js');
+//require('materialize-css/dist/js/materialize.js');
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
@@ -18,13 +20,13 @@ require('vue-resource');
 
 Vue.http.interceptors.push((request, next) => {
     request.headers.set('X-CSRF-TOKEN', Laravel.csrfToken);
-    $('.wp-loader').show();
+    $('.muso-loader').show();
 
     next((Response) => {
     	if (Response.status == 401) {
     		window.location.href = "/login";
     	}
-        $('.wp-loader').hide();
+        $('.muso-loader').hide();
     });
 });
 
@@ -41,4 +43,4 @@ Vue.http.interceptors.push((request, next) => {
 //     key: 'your-pusher-key'
 // });
 
-require('materialize-css');
+

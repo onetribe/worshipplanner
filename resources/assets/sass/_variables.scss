@@ -72,14 +72,15 @@ $panel-default-heading-bg: #fff;
 // 1. Colors
 // ==========================================================================
 
-$primary-color: color("blue-grey", "darken-3") !default;
-$primary-color-light: lighten($primary-color, 15%) !default;
+$primary-color: rgb(26, 61, 37); /*color("blue-grey", "darken-3") !default;*/
+$primary-color-light: lighten($primary-color, 35%) !default;
 $primary-color-dark: darken($primary-color, 15%) !default;
 
-$secondary-color: color("light-green", "darken-3") !default;
-$success-color: color("lime", "darken-2") !default;
+$secondary-color: rgb(196, 59, 150); /*color("light-green", "darken-3") !default;*/
+$secondary-color-light: lighten($secondary-color, 20%); /*color("light-green", "darken-3") !default;*/
+$success-color: $primary-color-light !default;
 $error-color: color("red", "base") !default;
-$link-color: color("blue-grey", "base") !default;
+$link-color: $primary-color-light !default;
 
 
 // 2. Badges
