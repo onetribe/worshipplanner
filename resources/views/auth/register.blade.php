@@ -4,6 +4,12 @@
 <div class=" muso-bg">
   <div class="row">
     <div class="col s10 m8 offset-m2">
+      <div class="card z-depth-1">
+        <div class="card-content">
+        Registration has not been enabled yet.
+        </div>
+      </div>
+    {{--
       <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
                     {{ csrf_field() }}
 
@@ -53,6 +59,7 @@
       </div>
 
       </form>
+      --}}
     </div>
   </div>
 </div>

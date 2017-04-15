@@ -43,6 +43,7 @@ class SendTeamInvite extends Mailable
     public function build()
     {
         return $this->view('emails.team_invite')
+            ->subject(trans('emails.team_invite_subject'))
             ->with([
                 'team_name' => $this->team->title,
                 'app_name' => trans('common.app_name'),

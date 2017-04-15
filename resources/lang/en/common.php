@@ -1,8 +1,8 @@
 <?php
 
 return [
-    "app_name" => "Worship Planner",
-    "tag_line" => "Worship sets planned. Check! Songs organised. Check! Smile on your face. Check!",
+    "app_name" => "müso",
+    "tag_line" => "Songs organised. Check! Worship sets planned. Check! Smile on your face. Check!",
     "login" => "Login",
     "register" => "Register",
     "title" => "Title",

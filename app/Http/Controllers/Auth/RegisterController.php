@@ -92,6 +92,9 @@ class RegisterController extends Controller
      */
     public function register(Request $request)
     {
+        //TODO: Registration is temporarily disabled
+        return response();
+
         $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->createUser($request->only(['first_name', 'last_name', 'email', 'password']))));    
